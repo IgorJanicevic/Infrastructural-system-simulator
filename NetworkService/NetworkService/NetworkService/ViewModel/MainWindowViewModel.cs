@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVVM3.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,18 +7,60 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace NetworkService.ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : BindableBase
     {
+        private HomeViewModel homeViewModel =  new HomeViewModel();
+        private NetworkEntitesViewModel networkentitesViewModel= new NetworkEntitesViewModel();
+        private BindableBase currentViewModel;
+
+        public BindableBase CurrentViewModel
+        {
+            get
+            {
+                return currentViewModel;
+            }
+
+            set
+            {
+                SetProperty(ref currentViewModel, value);
+            }
+        }
+
+        public MyICommand<string> NavCommand { get; private set; }
+
+
+
+
         private int count = 15; // Inicijalna vrednost broja objekata u sistemu
                                 // ######### ZAMENITI stvarnim brojem elemenata
                                 //           zavisno od broja entiteta u listi
 
         public MainWindowViewModel()
         {
+            NavCommand = new MyICommand<string>(OnNav);
+            CurrentViewModel = homeViewModel;
             createListener(); //Povezivanje sa serverskom aplikacijom
+
+        }
+
+        private void OnNav(string destination)
+        {
+            switch (destination)
+            {
+                case "homeView":
+                    CurrentViewModel = homeViewModel;
+                    break;
+                case "addView":
+                    CurrentViewModel = networkentitesViewModel;
+                    break;
+                //case "previewView":
+                //case "graphView":
+                   
+            }
         }
 
         private void createListener()

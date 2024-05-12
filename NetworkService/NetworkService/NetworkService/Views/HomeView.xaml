@@ -5,84 +5,35 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:NetworkService.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="800"
+    xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+    d:DesignHeight="600"
     d:DesignWidth="360"
     mc:Ignorable="d">
 
+    <UserControl.DataContext>
+        <viewModel:HomeViewModel />
+    </UserControl.DataContext>
+
     <Grid Background="SkyBlue">
-        <StackPanel Background="White" />
-        <StackPanel Height="80" VerticalAlignment="Bottom">
-            <Separator Width="330" Background="#00C64D" />
-            <StackPanel
-                Height="80"
-                VerticalAlignment="Bottom"
-                Background="White"
-                Orientation="Horizontal">
-                <Button
-                    Width="72"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    BorderThickness="0">
-                    <Image
-                        Width="40"
-                        Height="40"
-                        Source="/Resources/Images/icons8-add-40 (1).png" />
-
-                </Button>
-                <Button
-                    Width="72"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    BorderThickness="0">
-                    <Image
-                        Width="40"
-                        Height="40"
-                        Source="/Resources/Images/icons8-preview-40 (1).png" />
-
-                </Button>
-                <Button
-                    Width="72"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    BorderThickness="0">
-                    <Image
-                        Width="40"
-                        Height="40"
-                        Source="/Resources/Images/icons8-home-40 (2).png" />
-
-                </Button>
-                <Button
-                    Width="72"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    BorderThickness="0">
-                    <Image
-                        Width="40"
-                        Height="40"
-                        Source="/Resources/Images/icons8-graph-40 (1).png" />
-
-                </Button>
-                <Button
-                    Width="72"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    BorderThickness="0">
-                    <Image
-                        Width="40"
-                        Height="40"
-                        Source="/Resources/Images/icons8-back-40 (1).png" />
-                </Button>
-            </StackPanel>
+        <StackPanel>
+            <StackPanel.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#00c64d" />
+                    <GradientStop Offset="0.25" Color="#4fd073" />
+                    <GradientStop Offset="0.5" Color="#79da95" />
+                    <GradientStop Offset="0.75" Color="#9ee3b5" />
+                    <GradientStop Offset="1" Color="#c4ead2" />
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Ellipse
+                Width="150"
+                Height="140"
+                Margin="0,150,0,0"
+                HorizontalAlignment="Center">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="C:\Users\HomePC\Desktop\logo.png" />
+                </Ellipse.Fill>
+            </Ellipse>
         </StackPanel>
     </Grid>
 </UserControl>

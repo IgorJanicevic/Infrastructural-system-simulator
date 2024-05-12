@@ -10,21 +10,28 @@ namespace NetworkService.Model
     {
         Panel,Generator
     }
-    public class Object
+    public class Entity
     {
         public int Id {  get; set; }
         public Types Type { get; set; }
         public string Name { get; set; }
 
-        public Object()
+        public string ImagePath {  get; set; }
+
+        public List<int> Measures { get; set; }
+
+        public Entity()
         {
+            Measures = new List<int>();
         }
 
-        public Object(int id,string name, Types type)
+        public Entity(string name, Types type, string imagePath)
         {
-            Id = id;
+            Id = 7;
             Type = type;
             Name = name;
+            ImagePath = imagePath;
+            Measures = new List<int>();
         }
 
         public override string ToString()
