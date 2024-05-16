@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetworkService.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,13 +24,12 @@ namespace NetworkService.Views
         public NetworkEntitesView()
         {
             InitializeComponent();
-        }
-
-        private void EntitesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+            this.DataContext = new NetworkEntitesViewModel(MainWindowViewModel.Entites);
 
         }
 
-        
+
+
+
     }
 }

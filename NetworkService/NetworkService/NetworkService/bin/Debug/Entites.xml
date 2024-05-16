@@ -5,23 +5,46 @@
     <Type>Panel</Type>
     <Name>Panel-GFT</Name>
     <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\panel1.jpg</ImagePath>
-    <Measures />
-    <LastMeasure>0</LastMeasure>
+    <Measures>
+      <int>6</int>
+      <int>0</int>
+      <int>6</int>
+      <int>6</int>
+      <int>6</int>
+      <int>1</int>
+      <int>3</int>
+      <int>2</int>
+    </Measures>
+    <LastMeasure>2</LastMeasure>
   </Entity>
   <Entity>
     <Id>2</Id>
     <Type>Panel</Type>
     <Name>Backyard-GW</Name>
     <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\panel2.jpg</ImagePath>
-    <Measures />
-    <LastMeasure>0</LastMeasure>
+    <Measures>
+      <int>3</int>
+      <int>0</int>
+      <int>6</int>
+      <int>4</int>
+      <int>3</int>
+    </Measures>
+    <LastMeasure>3</LastMeasure>
   </Entity>
   <Entity>
     <Id>1</Id>
     <Type>Generator</Type>
     <Name>Nova-OP</Name>
     <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\generator1.jpg</ImagePath>
-    <Measures />
+    <Measures>
+      <int>0</int>
+      <int>5</int>
+      <int>8</int>
+      <int>9</int>
+      <int>0</int>
+      <int>1</int>
+      <int>0</int>
+    </Measures>
     <LastMeasure>0</LastMeasure>
   </Entity>
   <Entity>
@@ -29,15 +52,35 @@
     <Type>Generator</Type>
     <Name>Sea-HH1</Name>
     <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\generator2.jpg</ImagePath>
-    <Measures />
-    <LastMeasure>0</LastMeasure>
+    <Measures>
+      <int>0</int>
+      <int>2</int>
+      <int>6</int>
+      <int>7</int>
+      <int>8</int>
+      <int>6</int>
+      <int>1</int>
+      <int>5</int>
+    </Measures>
+    <LastMeasure>5</LastMeasure>
   </Entity>
   <Entity>
     <Id>7</Id>
     <Type>Panel</Type>
     <Name>SunGT-R</Name>
     <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\panel3.jpg</ImagePath>
-    <Measures />
-    <LastMeasure>0</LastMeasure>
+    <Measures>
+      <int>0</int>
+      <int>0</int>
+      <int>3</int>
+      <int>7</int>
+      <int>9</int>
+      <int>1</int>
+      <int>8</int>
+      <int>5</int>
+      <int>7</int>
+      <int>5</int>
+    </Measures>
+    <LastMeasure>5</LastMeasure>
   </Entity>
 </ArrayOfEntity>

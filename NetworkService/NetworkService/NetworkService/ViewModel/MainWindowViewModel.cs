@@ -1,5 +1,6 @@
 ﻿using MVVM3.Helpers;
 using MVVMLight.Messaging;
+using NetworkService.Helpers;
 using NetworkService.Model;
 using Notification.Wpf;
 using Projekat.Helpers;
@@ -19,14 +20,14 @@ namespace NetworkService.ViewModel
 {
     public class MainWindowViewModel : BindableBase
     {
-        public ObservableCollection<Entity> Entites { get; set; }
+        public static ObservableCollection<Entity> Entites { get; set; }
 
         private HomeViewModel homeViewModel =  new HomeViewModel();
         private NetworkEntitesViewModel networkentitesViewModel= new NetworkEntitesViewModel();
         private NetworkDisplayViewModel networkdisplayViewModel;
         private MeasurementGraphViewModel measurementGraphViewModel;
         private BindableBase currentViewModel;
-
+      
         public Stack<MyICommand> CommandsHistory { get; private set; }
         public BindableBase CurrentViewModel
         {
@@ -57,38 +58,45 @@ namespace NetworkService.ViewModel
             LoadData();
             measurementGraphViewModel = new MeasurementGraphViewModel(Entites);
             networkdisplayViewModel = new NetworkDisplayViewModel();
+            networkentitesViewModel= new NetworkEntitesViewModel(Entites);
             notificationManager = new NotificationManager();
             NavCommand = new MyICommand<string>(OnNav);
             UndoCommand = new MyICommand(UndoFunc); //Implementirati
             CurrentViewModel = homeViewModel;
-            Messenger.Default.Register<Entity>(this, AddToList);
+            Messenger.Default.Register<Tuple<Entity,string>>(this, AddOrDelete);
             Messenger.Default.Register<NotificationContent>(this, ShowToastNotification);
-
             createListener(); //Povezivanje sa serverskom aplikacijom
 
         }    
         private void ShowToastNotification(NotificationContent notificationContent)
         {
             notificationManager.Show(notificationContent, "WindowNotificationArea");
-        }
+        }     
+        private void AddOrDelete(Tuple<Entity,string> temp )
+        {
+            if (temp.Item2.Equals("ADD"))
+            {
+                Entites.Add(temp.Item1);
+                SaveData();
+                count++;
+            }
+            else
+            {
+                Entites.Remove(temp.Item1);
+                SaveData();
+                count--;
+            }
+
+            MessageBox.Show("Num: "+count);
+        }      
         private void LoadData()
         {
             Entites = serializer.DeSerializeObject<ObservableCollection<Entity>>("Entites.xml");
-            count= Entites.Count;
+            count = Entites.Count;
         }
         private void SaveData()
         {
             serializer.SerializeObject<ObservableCollection<Entity>>(Entites, "Entites.xml");
-        }
-        private void AddToList(Entity entity)
-        {
-            Entites.Add(entity);
-            SaveData();
-            count++;
-        }
-        private void DeleteFromList(Entity entity)
-        {
-            Entites.Remove(entity); SaveData(); count--;
         }
         private void UndoFunc()
         {
@@ -113,7 +121,6 @@ namespace NetworkService.ViewModel
                     break;
             }
         }
-
         private void createListener()
         {
             var tcp = new TcpListener(IPAddress.Any, 25675);
@@ -147,22 +154,29 @@ namespace NetworkService.ViewModel
                         }
                         else
                         {
-                            //U suprotnom, server je poslao promenu stanja nekog objekta u sistemu
-                            Console.WriteLine(incomming); //Na primer: "Entitet_1:272"
-                            string[] parts= incomming.Split('_');
-                            string name= parts[0];
-                            string[] parts2= parts[1].Split(':');
-                            int id= Convert.ToInt32(parts2[0]);
-                            int measure= Convert.ToInt32(parts2[1]);
-
-                            foreach(Entity en in networkentitesViewModel.Entites)
+                            try
                             {
-                                if ((name.Equals(en.Name)) && (id == en.Id))
-                                    en.Update(measure);
-                            }
-                            
+                                //U suprotnom, server je poslao promenu stanja nekog objekta u sistemu
+                                Console.WriteLine(incomming); //Na primer: "Entitet_1:272"
+                                string[] parts = incomming.Split('_');
+                                string name = parts[0];
+                                string[] parts2 = parts[1].Split(':');
+                                int id = Convert.ToInt32(parts2[0]);
+                                int measure = Convert.ToInt32(parts2[1]);
 
-                            
+                                Entites[id].Update(measure);
+                                LogData.Log($"{id}|{measure}");
+                                Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
+                            }
+                            catch(Exception ex) { }
+                            {
+                                Console.WriteLine("Error with create measure! " );
+                            }
+
+
+
+
+
 
                             //################ IMPLEMENTACIJA ####################
                             // Obraditi poruku kako bi se dobile informacije o izmeni

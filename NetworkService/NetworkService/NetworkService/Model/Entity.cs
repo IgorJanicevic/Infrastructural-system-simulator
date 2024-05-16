@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projekat.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,14 @@ namespace NetworkService.Model
 
         public Entity(string name, Types type, string imagePath)
         {
-            Id = 7;
+            int id = 0;
+            do
+            {
+                Random random = new Random();
+                id = random.Next(1, 500);
+
+            } while (GetAllId().Contains(id));
+            Id = id;
             LastMeasure = 0;
             Type = type;
             Name = name;
@@ -37,16 +45,38 @@ namespace NetworkService.Model
             Measures = new List<int>();
         }
 
+        public Entity(Entity entity)
+        {
+            this.Type = entity.Type;
+            this.Name = entity.Name;
+            this.ImagePath = entity.ImagePath;
+            this.Id = entity.Id;
+            this.LastMeasure = entity.LastMeasure;
+            this.Measures = entity.Measures;
+        }
+
         public void Update(int measure)
         {
 
-            this.Measures.Add(measure);
-            this.LastMeasure = measure;
+            Measures.Insert(0,measure);
+            LastMeasure = measure;
         }
 
         public override string ToString()
         {
-            return $"{Id} - {Type} {Name}";
+            return $"{Id} - {Type} {Name} LM: {LastMeasure}";
+        }
+
+        private List<int> GetAllId()
+        {
+            DataIO serializer = new DataIO();
+            List<Entity> entities = serializer.DeSerializeObject<List<Entity>>("Entites.xml");
+            List<int> ids= new List<int>();
+            foreach(Entity entity in entities)
+            {
+                ids.Add(entity.Id);
+            }
+            return ids ;
         }
     }
 }

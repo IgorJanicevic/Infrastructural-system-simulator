@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using MVVM3.Helpers;
 using MVVMLight.Messaging;
+using NetworkService.Helpers;
 using NetworkService.Model;
 using Notification.Wpf;
 using Projekat.Helpers;
@@ -22,8 +23,28 @@ namespace NetworkService.ViewModel
     public class NetworkEntitesViewModel : BindableBase
     {
 
-        public ObservableCollection<Entity> Entites {  get; set; }
-        public ObservableCollection<Entity> EntitesForView {  get; set; }
+        private ObservableCollection<Entity> _entites;
+
+        public ObservableCollection<Entity> Entites
+        {
+            get { return _entites; }
+            set { 
+                
+                    _entites = value;
+                    OnPropertyChanged(nameof(Entites));
+                    //OnPropertyChanged(nameof(Entity));
+            }
+        }
+        private ObservableCollection<Entity> _entitesForView;
+        public ObservableCollection<Entity> EntitesForView
+        {
+            get { return _entitesForView; }
+            set
+            {          
+                    _entitesForView = value;
+                    OnPropertyChanged(nameof(EntitesForView));        
+            }
+        }
         public IEnumerable<Types> TypesList
         {
             get
@@ -173,8 +194,6 @@ namespace NetworkService.ViewModel
                 }
             }
         }
-
-
         public MyICommand AddNewEntity { get; set; }
         public MyICommand UploadImage { get; set; }
         public MyICommand FilterEntites { get; set; }
@@ -182,36 +201,38 @@ namespace NetworkService.ViewModel
 
         public NetworkEntitesViewModel()
         {
-            LoadData();
-            AddNewEntity = new MyICommand(OnAdd);
-            UploadImage = new MyICommand(AddImage);
-            FilterEntites = new MyICommand(Filtering);
-            DeleteEntity = new MyICommand<Entity>(DeleteFunc);
-            TypesFilter = new List<string>() { "All","Panel","Generator" };
+        }
+        public NetworkEntitesViewModel(ObservableCollection<Entity> entites)
+        {
+            Messenger.Default.Register<ObservableCollection<Entity>>(this, UpdateValue);
+            LoadData(entites);
+            LoadCommands();
+
+        }
+   
+        private void UpdateValue(ObservableCollection<Entity> temp)
+        {
+            Console.WriteLine("ADD JEA");
+            Entites = new ObservableCollection<Entity>(temp);
+            Filtering();
             
         }
 
-        private void DeleteFunc(Entity entity)
-        {
-            if (entity != null)
-            {
-                MessageBoxResult result = MessageBox.Show("Are you sure you want delete this?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
-                {
-                    Entites.Remove(entity);
-                    MessageBox.Show("Successfully deleted entity", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
-                    SaveData(Entites);
-                }
-            }
-        }
+        #region Commands Function
         private void Filtering()
         {
             List<Entity> filteredEntities = Entites.ToList();
-            
-            
-            if (!TypesFilterText.Equals("All"))
+
+            if (TypesFilterText == null)
             {
-                filteredEntities = Entites.Where(el => el.Type.ToString().Equals(TypesFilterText.ToString())).ToList();
+            }
+            else
+            {
+
+                if (!TypesFilterText.Equals("All"))
+                {
+                    filteredEntities = Entites.Where(el => el.Type.ToString().Equals(TypesFilterText.ToString())).ToList();
+                }
             }
 
             if (IdFilterText != 0)
@@ -260,22 +281,23 @@ namespace NetworkService.ViewModel
                 bool error = false;
                 if(NameAddText==null)
                 {
-                    MessageBox.Show("Name field cannot be empty!", "Error", MessageBoxButton.OK,MessageBoxImage.Error);
+                    Messenger.Default.Send<NotificationContent>(CreateNameFaildToastNotification());
                     error=true;
                 }
                 
                 if (ImagePath == null)
                 {
-                    MessageBox.Show("Choose a picture!", "Error", MessageBoxButton.OK,MessageBoxImage.Error);
+                    Messenger.Default.Send<NotificationContent>(CreateImageFaildToastNotification());
                     error=true;
                 }
                 if (!error)
                 {
                     Entity newEntity = new Entity(NameAddText.ToString(), TypeAddText, ImagePath);
-                    Entites.Add(newEntity);
-                    Messenger.Default.Send<Entity>(newEntity);
-                    SaveData(Entites);
+                    Messenger.Default.Send<Tuple<Entity,string>>(new Tuple<Entity,string>(newEntity,"ADD"));
+                    NameAddText = null;
+                    ImagePath = null;
                     Messenger.Default.Send<NotificationContent>(CreateSuccessToastNotification());
+                    //LogData.Log($"Added {newEntity}");
 
                 }
             }
@@ -284,13 +306,65 @@ namespace NetworkService.ViewModel
                 MessageBox.Show("ERROR!");
             }
         }
+        private void DeleteFunc(Entity entity)
+        {
+            if (entity != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want delete this?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Messenger.Default.Send<Tuple<Entity, string>>(new Tuple<Entity, string>(entity, "DEL"));
+                    //LogData.Log($"Deleted {entity}");
 
+                }
+                Messenger.Default.Send<NotificationContent>(DeleteSuccessToastNotification());
+            }
+        }
+        #endregion
+
+        #region Notifications
+        private NotificationContent CreateImageFaildToastNotification()
+        {
+            var notificationContent = new NotificationContent
+            {
+                Title = "Faild",
+                Message = "Choose a picture!",
+                Type = NotificationType.Error,
+                TrimType = NotificationTextTrimType.AttachIfMoreRows, // Will show attach button on message
+                RowsCount = 2, // Will show 3 rows and trim after              
+                CloseOnClick = true, // Set true if u want close message when left mouse button click on message (base = true)
+                Background = new SolidColorBrush(Colors.Red),
+                Foreground = new SolidColorBrush(Colors.White),
+
+
+            };
+
+            return notificationContent;
+        }
+        private NotificationContent CreateNameFaildToastNotification()
+        {
+            var notificationContent = new NotificationContent
+            {
+                Title = "Faild",
+                Message = "Name cannot be empty!",
+                Type = NotificationType.Error,
+                TrimType = NotificationTextTrimType.AttachIfMoreRows, // Will show attach button on message
+                RowsCount = 2, // Will show 3 rows and trim after              
+                CloseOnClick = true, // Set true if u want close message when left mouse button click on message (base = true)
+                Background = new SolidColorBrush(Colors.Red),
+                Foreground = new SolidColorBrush(Colors.White),
+
+                
+            };
+
+            return notificationContent;
+        }
         private NotificationContent CreateSuccessToastNotification()
         {
             var notificationContent = new NotificationContent
             {
                 Title = "Success",
-                Message = "Note successfully added.",
+                Message = "Entity successfully added.",
                 Type = NotificationType.Success,
                 TrimType = NotificationTextTrimType.AttachIfMoreRows, // Will show attach button on message
                 RowsCount = 2, // Will show 3 rows and trim after
@@ -320,14 +394,60 @@ namespace NetworkService.ViewModel
 
             return notificationContent;
         }
-        private void LoadData()
-        {              
-            Entites = _serializer.DeSerializeObject<ObservableCollection<Entity>>("Entites.xml");
-            EntitesForView=Entites;
-        }
-        private void SaveData(ObservableCollection<Entity> entities)
+        private NotificationContent DeleteSuccessToastNotification()
         {
-            _serializer.SerializeObject<ObservableCollection<Entity>>(entities, "Entites.xml");
+            var notificationContent = new NotificationContent
+            {
+                Title = "Success",
+                Message = "Entity successfully deleted.",
+                Type = NotificationType.Success,
+                TrimType = NotificationTextTrimType.AttachIfMoreRows, // Will show attach button on message
+                RowsCount = 2, // Will show 3 rows and trim after
+                //LeftButtonAction = () => SomeAction(), // Action on left button click, button will not show if it null 
+                //RightButtonAction = () => SomeAction(), // Action on right button click,  button will not show if it null
+                //LeftButtonContent, // Left button content (string or what u want)
+                //RightButtonContent, // Right button content (string or what u want)
+                CloseOnClick = true, // Set true if u want close message when left mouse button click on message (base = true)
+
+                Background = new SolidColorBrush(Colors.LimeGreen),
+                Foreground = new SolidColorBrush(Colors.White),
+
+                // FontAwesome5 by Codinion NuGet paket ti treba da bi radilo ovo sa ikonicama
+                // Icon = new SvgAwesome()
+                // {
+                //      Icon = EFontAwesomeIcon.Regular_Star,
+                //      Height = 25,
+                //      Foreground = new SolidColorBrush(Colors.Yellow)
+                // },
+
+                // Image = new NotificationImage()
+                // {
+                //      Source = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Test image.png")));,
+                //      Position = ImagePosition.Top
+                // }
+            };
+
+            return notificationContent;
         }
+        #endregion
+
+        #region Loads
+        private void LoadData(ObservableCollection<Entity> entites)
+        {
+            Entites = entites;
+            EntitesForView = entites;
+
+        }
+        private void LoadCommands()
+        {
+            AddNewEntity = new MyICommand(OnAdd);
+            UploadImage = new MyICommand(AddImage);
+            FilterEntites = new MyICommand(Filtering);
+            DeleteEntity = new MyICommand<Entity>(DeleteFunc);
+            TypesFilter = new List<string>() { "All", "Panel", "Generator" };
+
+        }
+
+        #endregion
     }
 }

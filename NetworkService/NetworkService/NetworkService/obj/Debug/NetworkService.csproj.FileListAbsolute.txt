@@ -49,3 +49,5 @@ C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService
 C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\MeasurementGraphView.baml
 C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\bin\Debug\MVVMLight.Messaging.dll
 C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\bin\Debug\MVVMLight.Messaging.xml
+C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\bin\Debug\GongSolutions.WPF.DragDrop.dll
+C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\bin\Debug\GongSolutions.WPF.DragDrop.xml

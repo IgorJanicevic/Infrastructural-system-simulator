@@ -33,106 +33,113 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid
-        Width="360"
-        Height="700"
-        Background="Transparent">
+    <Grid>
+        <notifications:NotificationArea
+            x:Name="WindowNotificationArea"
+            Panel.ZIndex="1000"
+            MaxItems="3"
+            Position="TopRight" />
 
+        <Grid
+            Width="360"
+            Height="700"
+            Background="Transparent">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="600" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="80" />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="600" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
 
-        <ContentControl
-            Grid.Row="0"
-            Height="600"
-            Content="{Binding CurrentViewModel}" />
+            <ContentControl
+                Grid.Row="0"
+                Height="600"
+                Content="{Binding CurrentViewModel}" />
 
-        <Separator
-            Grid.Row="1"
-            Width="330"
-            Background="#00C64D" />
-        <StackPanel
-            Grid.Row="2"
-            Height="80"
-            VerticalAlignment="Bottom"
-            Background="White"
-            Orientation="Horizontal">
-            <Button
-                Width="72"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Command="{Binding NavCommand}"
-                CommandParameter="addView">
-                <Image
-                    Width="40"
-                    Height="40"
-                    Source="/Resources/Images/icons8-add-40 (1).png" />
+            <Separator
+                Grid.Row="1"
+                Width="330"
+                Background="#00C64D" />
+            <StackPanel
+                Grid.Row="2"
+                Height="80"
+                VerticalAlignment="Bottom"
+                Background="White"
+                Orientation="Horizontal">
+                <Button
+                    Width="72"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="addView">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="/Resources/Images/icons8-add-40 (1).png" />
 
-            </Button>
-            <Button
-                Width="72"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Command="{Binding NavCommand}"
-                CommandParameter="displayView">
-                <Image
-                    Width="40"
-                    Height="40"
-                    Source="/Resources/Images/icons8-preview-40 (1).png" />
+                </Button>
+                <Button
+                    Width="72"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="displayView">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="/Resources/Images/icons8-preview-40 (1).png" />
 
-            </Button>
-            <Button
-                Width="72"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Command="{Binding NavCommand}"
-                CommandParameter="homeView">
-                <Image
-                    Width="40"
-                    Height="40"
-                    Source="/Resources/Images/icons8-home-40 (2).png" />
+                </Button>
+                <Button
+                    Width="72"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="homeView">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="/Resources/Images/icons8-home-40 (2).png" />
 
-            </Button>
-            <Button
-                Width="72"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Command="{Binding NavCommand}"
-                CommandParameter="graphView">
-                <Image
-                    Width="40"
-                    Height="40"
-                    Source="/Resources/Images/icons8-graph-40 (1).png" />
+                </Button>
+                <Button
+                    Width="72"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="graphView">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="/Resources/Images/icons8-graph-40 (1).png" />
 
-            </Button>
-            <Button
-                Width="72"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Command="{Binding UndoCommand}">
-                <Image
-                    Width="40"
-                    Height="40"
-                    Source="/Resources/Images/icons8-back-40 (1).png" />
-            </Button>
-        </StackPanel>
+                </Button>
+                <Button
+                    Width="72"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding UndoCommand}">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="/Resources/Images/icons8-back-40 (1).png" />
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

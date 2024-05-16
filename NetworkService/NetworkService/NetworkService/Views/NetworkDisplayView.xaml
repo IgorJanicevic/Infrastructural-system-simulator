@@ -31,7 +31,10 @@
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
 
         <StackPanel Background="White" Orientation="Vertical">
-            <TreeView Height="Auto" ItemsSource="{Binding EntitesWithTypesCollection}">
+            <TreeView
+                x:Name="EntitesTreeView"
+                Height="Auto"
+                ItemsSource="{Binding EntitesWithTypesCollection}">
                 <TreeView.Resources>
                     <!--  Template for view types  -->
                     <HierarchicalDataTemplate DataType="{x:Type model:EntitesWithType}" ItemsSource="{Binding Entites}">
