@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:MVVM3.Helpers"
     xmlns:local="clr-namespace:NetworkService.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:NetworkService.Model"
@@ -31,22 +32,39 @@
                     Source="{Binding ImagePath}" />
                 <StackPanel Grid.Column="1" Margin="0,10,0,0">
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Name: " />
-                        <TextBlock x:Name="txtBlockNameListView" Text="{Binding Name}" />
+                        <Label Content="Name: " FontWeight="Bold" />
+                        <TextBlock
+                            x:Name="txtBlockNameListView"
+                            Height="18"
+                            Margin="0,2,0,0"
+                            VerticalAlignment="Center"
+                            Text="{Binding Name}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Type: " />
-                        <TextBlock x:Name="txtBlockIdListView" Text="{Binding Type}" />
+                        <Label Content="Type: " FontWeight="Bold" />
+                        <TextBlock
+                            x:Name="txtBlockIdListView"
+                            Width="Auto"
+                            Height="14"
+                            Text="{Binding Type}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Last measure: " />
-                        <TextBlock x:Name="txtBlockLastMeasureListView" Text="{Binding LastMeasure}" />
+                        <Label Content="Last measure: " FontWeight="Bold" />
+                        <TextBlock
+                            x:Name="txtBlockLastMeasureListView"
+                            Width="Auto"
+                            Margin="0,6,0,0"
+                            Text="{Binding LastMeasure}" />
+                        <Label Content="MW" />
                     </StackPanel>
                 </StackPanel>
                 <Button
+                    x:Name="DeleteButton"
                     Grid.Column="3"
                     Width="40"
                     Height="40"
+                    Command="{Binding ElementName=EntitesListView, Path=DataContext.DeleteEntity}"
+                    CommandParameter="{Binding}"
                     Content="Delete"
                     FontSize="10"
                     Style="{StaticResource btnApp}" />
@@ -68,39 +86,53 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+                    <StackPanel Margin="6,0,6,12" Orientation="Vertical">
+                        <Label Content="Add new object" Style="{StaticResource headerLabel}" />
+                        <Label Content="Name:" FontSize="20" />
+                        <TextBox
+                            Name="NameAddTextBox"
+                            FontSize="20"
+                            Style="{StaticResource textboxSearch}"
+                            Text="{Binding NameAddText}" />
+                    </StackPanel>
 
-                    <TextBox
-                        Margin="6,15,6,15"
-                        FontSize="20"
-                        Style="{StaticResource textboxSearch}"
-                        Text="Name" />
+                    <StackPanel Grid.Row="2" Margin="6,0,6,15">
+                        <Label Content="Type:" FontSize="20" />
+                        <ComboBox
+                            x:Name="TypesAddComboBox"
+                            Grid.Row="2"
+                            Width="328"
+                            Height="50"
+                            BorderThickness="0"
+                            FontSize="20"
+                            ItemsSource="{Binding TypesList}"
+                            SelectedItem="{Binding TypeAddText}" />
+                    </StackPanel>
 
-                    <ComboBox
-                        Grid.Row="2"
-                        Width="328"
-                        Height="50"
-                        Margin="6,5,6,15"
-                        BorderThickness="0" />
 
                     <StackPanel Grid.Row="3" Orientation="Horizontal">
                         <Button
+                            x:Name="ImageAddButton"
                             Grid.Row="3"
                             Width="130"
                             Margin="6,15,6,15"
+                            Command="{Binding UploadImage}"
                             Content="🖼 Image"
                             Style="{StaticResource btnApp}" />
                         <Button
+                            x:Name="AddButton"
                             Grid.Row="3"
                             Width="130"
                             Margin="62,15,6,15"
                             HorizontalAlignment="Right"
+                            Command="{Binding AddNewEntity}"
                             Style="{StaticResource btnApp}" />
                     </StackPanel>
                 </Grid>
             </Border>
 
             <Border Style="{StaticResource borderes}">
-                <Grid Height="500">
+                <Grid Height="Auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -116,63 +148,105 @@
 
                     <Label
                         Grid.Column="1"
-                        HorizontalContentAlignment="Center"
                         Content="Search"
-                        FontFamily="sans-serif-medium"
-                        FontSize="20"
-                        FontStyle="Normal"
-                        FontWeight="Bold"
-                        Foreground="{StaticResource UIPrimaryColor}" />
-
-                    <TextBox
+                        Foreground="{StaticResource UIPrimaryColor}"
+                        Style="{StaticResource headerLabel}" />
+                    <StackPanel
                         Grid.Row="1"
-                        Width="90"
-                        Margin="6,18,0,0"
-                        Style="{StaticResource textboxSearch}"
-                        Text="ID" />
+                        Margin="8,12,0,0"
+                        Orientation="Horizontal">
+                        <Label
+                            Grid.Row="1"
+                            Content="Id:"
+                            FontSize="20" />
+                        <TextBox
+                            Grid.Row="1"
+                            Width="70"
+                            Style="{StaticResource textboxSearch}"
+                            Text="{Binding IdFilterText}" />
+                    </StackPanel>
                     <StackPanel
                         Grid.Row="1"
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
+                        Margin="10,9,0,0"
                         Orientation="Horizontal">
-                        <RadioButton VerticalAlignment="Center" Content="=" />
-                        <RadioButton VerticalAlignment="Center" Content="&lt;" />
-                        <RadioButton VerticalAlignment="Center" Content="&gt;" />
+                        <Viewbox Width="50" Margin="0,0,20,0">
+                            <RadioButton
+                                x:Name="EqualsButton"
+                                VerticalAlignment="Center"
+                                Background="{StaticResource UIPrimaryColor}"
+                                Content="="
+                                GroupName="FilterRadioButton"
+                                IsChecked="{Binding EqualsChecked}" />
+                        </Viewbox>
+                        <Viewbox Width="50" Margin="0,0,20,0">
+
+                            <RadioButton
+                                x:Name="LTButton"
+                                VerticalAlignment="Center"
+                                Background="{StaticResource UIPrimaryColor}"
+                                Content="&lt;"
+                                GroupName="FilterRadioButton"
+                                IsChecked="{Binding LtChecked}" />
+                        </Viewbox>
+                        <Viewbox Width="50">
+
+                            <RadioButton
+                                x:Name="GTButton"
+                                VerticalAlignment="Center"
+                                Background="{StaticResource UIPrimaryColor}"
+                                Content="&gt;"
+                                GroupName="FilterRadioButton"
+                                IsChecked="{Binding GtChecked}" />
+                        </Viewbox>
+
+
 
                     </StackPanel>
-                    <ComboBox
+                    <StackPanel
                         Grid.Row="2"
                         Grid.ColumnSpan="3"
-                        Width="328"
-                        Height="50"
-                        Margin="6,0,6,15"
-                        BorderThickness="0" />
+                        Margin="6,0,6,20">
+                        <Label Content="Type:" FontSize="20" />
+                        <ComboBox
+                            x:Name="TypesFilterComboBox"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="3"
+                            Width="328"
+                            Height="50"
+                            BorderThickness="0"
+                            FontSize="20"
+                            ItemsSource="{Binding TypesFilter}"
+                            SelectedItem="{Binding TypesFilterText}" />
+                    </StackPanel>
 
                     <Button
                         Grid.Row="2"
-                        Grid.RowSpan="2"
                         Grid.ColumnSpan="3"
-                        Margin="6,90,8,13"
-                        Content="Search"
+                        Margin="6,100,8,10"
+                        Command="{Binding FilterEntites}"
+                        Content="View"
                         Style="{StaticResource btnApp}" />
 
                     <Border
                         Grid.Row="4"
                         Grid.ColumnSpan="3"
-                        Height="100"
+                        Height="315"
                         Background="Transparent"
                         BorderThickness="1"
                         Style="{StaticResource borderes}">
 
                         <ListView
-                            x:Name="ObjectsListView"
+                            x:Name="EntitesListView"
+                            Height="Auto"
                             Margin="4"
                             Background="AliceBlue"
                             BorderThickness="0"
-                            ItemsSource="{Binding Entites}"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            ItemsSource="{Binding EntitesForView}"
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden"
                             SelectedItem="{Binding SelectedEntity}"
-                            SelectionChanged="ObjectsListView_SelectionChanged"
+                            SelectionChanged="EntitesListView_SelectionChanged"
                             SelectionMode="Single">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">

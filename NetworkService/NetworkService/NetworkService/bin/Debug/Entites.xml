@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ArrayOfEntity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Entity>
+    <Id>7</Id>
+    <Type>Panel</Type>
+    <Name>Panel-GFT</Name>
+    <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\panel1.jpg</ImagePath>
+    <Measures />
+    <LastMeasure>0</LastMeasure>
+  </Entity>
+  <Entity>
+    <Id>2</Id>
+    <Type>Panel</Type>
+    <Name>Backyard-GW</Name>
+    <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\panel2.jpg</ImagePath>
+    <Measures />
+    <LastMeasure>0</LastMeasure>
+  </Entity>
+  <Entity>
+    <Id>1</Id>
+    <Type>Generator</Type>
+    <Name>Nova-OP</Name>
+    <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\generator1.jpg</ImagePath>
+    <Measures />
+    <LastMeasure>0</LastMeasure>
+  </Entity>
+  <Entity>
+    <Id>4</Id>
+    <Type>Generator</Type>
+    <Name>Sea-HH1</Name>
+    <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\generator2.jpg</ImagePath>
+    <Measures />
+    <LastMeasure>0</LastMeasure>
+  </Entity>
+  <Entity>
+    <Id>7</Id>
+    <Type>Panel</Type>
+    <Name>SunGT-R</Name>
+    <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\panel3.jpg</ImagePath>
+    <Measures />
+    <LastMeasure>0</LastMeasure>
+  </Entity>
+</ArrayOfEntity>

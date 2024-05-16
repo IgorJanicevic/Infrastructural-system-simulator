@@ -1,6 +1,11 @@
 ﻿using MVVM3.Helpers;
+using MVVMLight.Messaging;
+using NetworkService.Model;
+using Notification.Wpf;
+using Projekat.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -8,15 +13,21 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace NetworkService.ViewModel
 {
     public class MainWindowViewModel : BindableBase
     {
+        public ObservableCollection<Entity> Entites { get; set; }
+
         private HomeViewModel homeViewModel =  new HomeViewModel();
         private NetworkEntitesViewModel networkentitesViewModel= new NetworkEntitesViewModel();
+        private NetworkDisplayViewModel networkdisplayViewModel;
+        private MeasurementGraphViewModel measurementGraphViewModel;
         private BindableBase currentViewModel;
 
+        public Stack<MyICommand> CommandsHistory { get; private set; }
         public BindableBase CurrentViewModel
         {
             get
@@ -29,24 +40,61 @@ namespace NetworkService.ViewModel
                 SetProperty(ref currentViewModel, value);
             }
         }
-
         public MyICommand<string> NavCommand { get; private set; }
+        public MyICommand UndoCommand { get; private set; }
+
+        private DataIO serializer= new DataIO();
+        private NotificationManager notificationManager;
 
 
 
-
-        private int count = 15; // Inicijalna vrednost broja objekata u sistemu
+        private int count = 0; // Inicijalna vrednost broja objekata u sistemu
                                 // ######### ZAMENITI stvarnim brojem elemenata
                                 //           zavisno od broja entiteta u listi
 
         public MainWindowViewModel()
         {
+            LoadData();
+            measurementGraphViewModel = new MeasurementGraphViewModel(Entites);
+            networkdisplayViewModel = new NetworkDisplayViewModel();
+            notificationManager = new NotificationManager();
             NavCommand = new MyICommand<string>(OnNav);
+            UndoCommand = new MyICommand(UndoFunc); //Implementirati
             CurrentViewModel = homeViewModel;
+            Messenger.Default.Register<Entity>(this, AddToList);
+            Messenger.Default.Register<NotificationContent>(this, ShowToastNotification);
+
             createListener(); //Povezivanje sa serverskom aplikacijom
 
+        }    
+        private void ShowToastNotification(NotificationContent notificationContent)
+        {
+            notificationManager.Show(notificationContent, "WindowNotificationArea");
         }
+        private void LoadData()
+        {
+            Entites = serializer.DeSerializeObject<ObservableCollection<Entity>>("Entites.xml");
+            count= Entites.Count;
+        }
+        private void SaveData()
+        {
+            serializer.SerializeObject<ObservableCollection<Entity>>(Entites, "Entites.xml");
+        }
+        private void AddToList(Entity entity)
+        {
+            Entites.Add(entity);
+            SaveData();
+            count++;
+        }
+        private void DeleteFromList(Entity entity)
+        {
+            Entites.Remove(entity); SaveData(); count--;
+        }
+        private void UndoFunc()
+        {
+            MyICommand last = CommandsHistory.Pop();
 
+        }
         private void OnNav(string destination)
         {
             switch (destination)
@@ -57,9 +105,12 @@ namespace NetworkService.ViewModel
                 case "addView":
                     CurrentViewModel = networkentitesViewModel;
                     break;
-                //case "previewView":
-                //case "graphView":
-                   
+                case "displayView":
+                    CurrentViewModel = networkdisplayViewModel;
+                    break;
+                case "graphView":
+                    CurrentViewModel = measurementGraphViewModel;
+                    break;
             }
         }
 
@@ -98,6 +149,20 @@ namespace NetworkService.ViewModel
                         {
                             //U suprotnom, server je poslao promenu stanja nekog objekta u sistemu
                             Console.WriteLine(incomming); //Na primer: "Entitet_1:272"
+                            string[] parts= incomming.Split('_');
+                            string name= parts[0];
+                            string[] parts2= parts[1].Split(':');
+                            int id= Convert.ToInt32(parts2[0]);
+                            int measure= Convert.ToInt32(parts2[1]);
+
+                            foreach(Entity en in networkentitesViewModel.Entites)
+                            {
+                                if ((name.Equals(en.Name)) && (id == en.Id))
+                                    en.Update(measure);
+                            }
+                            
+
+                            
 
                             //################ IMPLEMENTACIJA ####################
                             // Obraditi poruku kako bi se dobile informacije o izmeni

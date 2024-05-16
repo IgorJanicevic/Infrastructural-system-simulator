@@ -1,0 +1,277 @@
+﻿<UserControl
+    x:Class="NetworkService.Views.NetworkDisplayView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NetworkService.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:NetworkService.Model"
+    xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+    d:DesignHeight="600"
+    d:DesignWidth="360"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <viewModel:NetworkDisplayViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <DockPanel
+            x:Key="DockForEntity"
+            Width="100"
+            Height="120">
+            <Border
+                Margin="5"
+                BorderBrush="Blue"
+                Style="{StaticResource borderes}">
+                <Canvas />
+            </Border>
+        </DockPanel>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+
+        <StackPanel Background="White" Orientation="Vertical">
+            <TreeView Height="Auto" ItemsSource="{Binding EntitesWithTypesCollection}">
+                <TreeView.Resources>
+                    <!--  Template for view types  -->
+                    <HierarchicalDataTemplate DataType="{x:Type model:EntitesWithType}" ItemsSource="{Binding Entites}">
+                        <TextBlock Text="{Binding Types}" />
+                    </HierarchicalDataTemplate>
+                    <!--  Template fore view entites  -->
+                    <DataTemplate DataType="{x:Type model:Entity}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="40"
+                                Height="40"
+                                Source="{Binding ImagePath}" />
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+
+
+            <Border Height="Auto" Style="{StaticResource borderes}">
+                <StackPanel Margin="8" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Border
+                            Width="90"
+                            Height="120"
+                            Margin="10,0,10,0"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas1"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                        <Border
+                            Width="90"
+                            Height="120"
+                            Margin="10,0,10,0"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas2"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                        <Border
+                            Width="90"
+                            Height="120"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas3"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border
+                            Width="90"
+                            Height="120"
+                            Margin="10,0,10,0"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas4"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                        <Border
+                            Width="90"
+                            Height="120"
+                            Margin="10,0,10,0"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas5"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                        <Border
+                            Width="90"
+                            Height="120"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas6"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border
+                            Width="90"
+                            Height="120"
+                            Margin="10,0,10,0"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas7"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                        <Border
+                            Width="90"
+                            Height="120"
+                            Margin="10,0,10,0"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas8"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                        <Border
+                            Width="90"
+                            Height="120"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas9"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border
+                            Width="90"
+                            Height="120"
+                            Margin="10,0,10,0"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas10"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                        <Border
+                            Width="90"
+                            Height="120"
+                            Margin="10,0,10,0"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas11"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                        <Border
+                            Width="90"
+                            Height="120"
+                            BorderBrush="Blue"
+                            Style="{StaticResource borderes}">
+                            <Canvas
+                                Name="Canvas12"
+                                Margin="2"
+                                AllowDrop="True"
+                                Background="White">
+                                <TextBlock
+                                    Margin="5"
+                                    FontSize="12"
+                                    Text="" />
+                            </Canvas>
+                        </Border>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

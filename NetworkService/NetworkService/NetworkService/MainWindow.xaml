@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:NetworkService"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
     xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
     xmlns:views="clr-namespace:NetworkService.Views"
     Title="MainWindow"
@@ -24,12 +25,20 @@
         <DataTemplate DataType="{x:Type viewModel:NetworkEntitesViewModel}">
             <views:NetworkEntitesView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:NetworkDisplayViewModel}">
+            <views:NetworkDisplayView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:MeasurementGraphViewModel}">
+            <views:MeasurementGraphView />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid
         Width="360"
         Height="700"
         Background="Transparent">
+
+
         <Grid.RowDefinitions>
             <RowDefinition Height="600" />
             <RowDefinition Height="Auto" />
@@ -74,7 +83,7 @@
                 BorderBrush="Transparent"
                 BorderThickness="0"
                 Command="{Binding NavCommand}"
-                CommandParameter="previewView">
+                CommandParameter="displayView">
                 <Image
                     Width="40"
                     Height="40"
@@ -117,7 +126,8 @@
                 VerticalContentAlignment="Center"
                 Background="Transparent"
                 BorderBrush="Transparent"
-                BorderThickness="0">
+                BorderThickness="0"
+                Command="{Binding UndoCommand}">
                 <Image
                     Width="40"
                     Height="40"

@@ -35,8 +35,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="MVVMLight.Messaging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MVVMLight.Messaging.1.0.0.0\lib\net40\MVVMLight.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Notification.Wpf, Version=8.0.0.0, Culture=neutral, PublicKeyToken=1acac493089262b5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Notification.Wpf.8.0.0\lib\net47\Notification.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -56,15 +68,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\BindableBase.cs" />
+    <Compile Include="Helpers\DataIO.cs" />
     <Compile Include="Helpers\MyICommand.cs" />
     <Compile Include="Helpers\ValidationBase.cs" />
     <Compile Include="Helpers\ValidationErrors.cs" />
+    <Compile Include="Model\EntitesWithType.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\MeasurementGraphViewModel.cs" />
+    <Compile Include="ViewModel\NetworkDisplayViewModel.cs" />
     <Compile Include="ViewModel\NetworkEntitesViewModel.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MeasurementGraphView.xaml.cs">
+      <DependentUpon>MeasurementGraphView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkDisplayView.xaml.cs">
+      <DependentUpon>NetworkDisplayView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NetworkEntitesView.xaml.cs">
       <DependentUpon>NetworkEntitesView.xaml</DependentUpon>
@@ -82,6 +104,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MeasurementGraphView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkDisplayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,6 +138,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -122,6 +153,13 @@
     <Resource Include="Resources\Images\icons8-graph-40 %281%29.png" />
     <Resource Include="Resources\Images\icons8-home-40 %282%29.png" />
     <Resource Include="Resources\Images\icons8-preview-40 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\generator1.jpg" />
+    <Resource Include="Resources\Images\generator2.jpg" />
+    <Resource Include="Resources\Images\panel1.jpg" />
+    <Resource Include="Resources\Images\panel2.jpg" />
+    <Resource Include="Resources\Images\panel3.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

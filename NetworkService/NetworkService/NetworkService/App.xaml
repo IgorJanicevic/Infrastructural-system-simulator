@@ -13,11 +13,13 @@
         <FontFamily x:Key="UIPrimaryFont" />
         <!--  #D9F9D9  -->
 
+
         <Style x:Key="btnApp" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource UIPrimaryColor}" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Width" Value="328" />
+            <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Height" Value="50" />
             <Setter Property="FontSize" Value="24" />
             <Setter Property="Template">
@@ -36,7 +38,7 @@
             <Setter Property="Content" Value="+ Add" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#003A00" />
+                    <Setter Property="Background" Value="Blue" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -61,7 +63,14 @@
             <Setter Property="Margin" Value="8" />
         </Style>
 
+        <Style x:Key="headerLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{StaticResource UIPrimaryColor}" />
+            <Setter Property="FontFamily" Value="sans-serif-medium" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
 
+        </Style>
 
     </Application.Resources>
 </Application>

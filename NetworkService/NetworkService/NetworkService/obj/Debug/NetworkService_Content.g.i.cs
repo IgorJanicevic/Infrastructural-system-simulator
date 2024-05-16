@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/icons8-add-40%20(1).png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/icons8-back-40%20(1).png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/icons8-graph-40%20(1).png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/icons8-home-40%20(2).png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/icons8-preview-40%20(1).png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/generator1.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/generator2.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/panel1.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/panel2.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/panel3.jpg")]
 
 

@@ -25,9 +25,11 @@ namespace NetworkService.Views
             InitializeComponent();
         }
 
-        private void ObjectsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void EntitesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+        
     }
 }
