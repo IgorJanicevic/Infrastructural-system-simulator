@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Windows;
 
-namespace Projekat.Helpers
+namespace NetworkService.Helpers
 {
     public class DataIO
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVVM3.Helpers
+namespace NetworkService.Helpers
 {
     public abstract class ValidationBase : BindableBase
     {

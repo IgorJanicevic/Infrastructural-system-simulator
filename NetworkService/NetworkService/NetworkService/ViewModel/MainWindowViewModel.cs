@@ -1,5 +1,4 @@
-﻿using MVVM3.Helpers;
-using MVVMLight.Messaging;
+﻿using MVVMLight.Messaging;
 using NetworkService.Helpers;
 using NetworkService.Model;
 using Notification.Wpf;
@@ -15,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace NetworkService.ViewModel
 {
@@ -27,8 +27,10 @@ namespace NetworkService.ViewModel
         private NetworkDisplayViewModel networkdisplayViewModel;
         private MeasurementGraphViewModel measurementGraphViewModel;
         private BindableBase currentViewModel;
+        private Entity LastAdded { get; set; }
+        private Entity LastDeleted { get; set; }
       
-        public Stack<MyICommand> CommandsHistory { get; private set; }
+        public static Stack<string> CommandsHistory { get; set; }
         public BindableBase CurrentViewModel
         {
             get
@@ -76,21 +78,26 @@ namespace NetworkService.ViewModel
         {
             if (temp.Item2.Equals("ADD"))
             {
+                CommandsHistory.Push("add");
                 Entites.Add(temp.Item1);
+                LastAdded = temp.Item1;
                 SaveData();
                 count++;
             }
             else
             {
+                CommandsHistory.Push("delete");
+                LastDeleted = temp.Item1;
                 Entites.Remove(temp.Item1);
                 SaveData();
                 count--;
             }
+            Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
 
-            MessageBox.Show("Num: "+count);
         }      
         private void LoadData()
         {
+            CommandsHistory = new Stack<string>();
             Entites = serializer.DeSerializeObject<ObservableCollection<Entity>>("Entites.xml");
             count = Entites.Count;
         }
@@ -100,8 +107,56 @@ namespace NetworkService.ViewModel
         }
         private void UndoFunc()
         {
-            MyICommand last = CommandsHistory.Pop();
+            if (CommandsHistory.Count == 0) return;
+            string last = CommandsHistory.Pop();          
+            switch(last)
+            {
+                case "delete":
+                    UndoDelete();
+                    break;
+                case "add":
+                    UndoAdd();
+                    break;
+                default:
+                    GoBack(last); break;
+            }
 
+        }
+
+        private void UndoDelete()
+        {
+            Entites.Add(LastDeleted);
+            SaveData();
+            Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
+        }
+
+        private void UndoAdd()
+        {
+            Entites.Remove(LastAdded);
+            SaveData();
+            Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
+            //Notificitaions
+
+        }
+
+        private string LastNavigation = "homeView";
+        private void GoBack(string nav)
+        {
+            switch (nav)
+            {
+                case "homeView":
+                    CurrentViewModel = homeViewModel;
+                    break;
+                case "addView":
+                    CurrentViewModel = networkentitesViewModel;
+                    break;
+                case "displayView":
+                    CurrentViewModel = networkdisplayViewModel;
+                    break;
+                case "graphView":
+                    CurrentViewModel = measurementGraphViewModel;
+                    break;
+            }
         }
         private void OnNav(string destination)
         {
@@ -120,6 +175,8 @@ namespace NetworkService.ViewModel
                     CurrentViewModel = measurementGraphViewModel;
                     break;
             }
+            CommandsHistory.Push(LastNavigation);
+            LastNavigation= destination;
         }
         private void createListener()
         {

@@ -1,4 +1,4 @@
-﻿using MVVM3.Helpers;
+﻿using NetworkService.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

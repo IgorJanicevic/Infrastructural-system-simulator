@@ -1,10 +1,8 @@
 ﻿using Microsoft.Win32;
-using MVVM3.Helpers;
 using MVVMLight.Messaging;
 using NetworkService.Helpers;
 using NetworkService.Model;
 using Notification.Wpf;
-using Projekat.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -214,8 +212,17 @@ namespace NetworkService.ViewModel
         {
             Console.WriteLine("ADD JEA");
             Entites = new ObservableCollection<Entity>(temp);
+            EntitesForView = new ObservableCollection<Entity>(temp);
             Filtering();
             
+        }
+
+        private void FilterUpdate()
+        {            
+            List<Entity> tempCollection= (EntitesForView.Where(x=> Entites.Contains(x)).ToList());
+            EntitesForView = new ObservableCollection<Entity>(tempCollection);
+            OnPropertyChanged(nameof(EntitesForView));
+
         }
 
         #region Commands Function

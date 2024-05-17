@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetworkService.Helpers
+namespace Projekat.Helpers
 {
     public class LogData
     {

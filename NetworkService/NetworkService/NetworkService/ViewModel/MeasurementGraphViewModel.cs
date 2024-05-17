@@ -1,7 +1,6 @@
-﻿using MVVM3.Helpers;
-using MVVMLight.Messaging;
+﻿using MVVMLight.Messaging;
 using NetworkService.Model;
-using Projekat.Helpers;
+using NetworkService.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,7 +31,7 @@ namespace NetworkService.ViewModel
             set
             {                 
                     _selectedEntity = value;
-                    OnPropertyChanged(nameof(SelectedEntity));               
+                    OnPropertyChanged(nameof(SelectedEntity));
             }
         }
 
@@ -49,8 +48,10 @@ namespace NetworkService.ViewModel
         private void UpdateValue(ObservableCollection<Entity> temp)
         {
             Entites = new ObservableCollection<Entity>(temp);
-            Entity en= (Entity)(Entites.Where(n => n.Id == SelectedEntity.Id));
-            SelectedEntity = new Entity(en);
+            foreach (Entity ent in Entites)
+            {
+                //if (ent.Id) { }
+            }
             OnPropertyChanged(nameof(SelectedEntity));
         }
 
