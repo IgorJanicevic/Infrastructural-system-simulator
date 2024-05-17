@@ -80,16 +80,12 @@
                                             <i:InvokeCommandAction.CommandParameter>
                                                 <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
                                                     <Binding />
-                                                    <Binding RelativeSource="{RelativeSource Self}" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
                                                 </MultiBinding>
                                             </i:InvokeCommandAction.CommandParameter>
                                         </i:InvokeCommandAction>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                                <TextBlock
-                                    Margin="5"
-                                    FontSize="12"
-                                    Text="" />
                             </Canvas>
                         </Border>
                         <Border

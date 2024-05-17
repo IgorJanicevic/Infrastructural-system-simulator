@@ -62,3 +62,5 @@ C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService
 C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\bin\Debug\GalaSoft.MvvmLight.Extras.xml
 C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
 C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\CustomKeyboard.g.cs
+C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\CustomKeyboard.baml

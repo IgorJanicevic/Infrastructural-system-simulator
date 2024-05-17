@@ -92,15 +92,20 @@
     <Compile Include="Helpers\MeasureToColorConverter.cs" />
     <Compile Include="Helpers\MultiplyConverter.cs" />
     <Compile Include="Helpers\MyICommand.cs" />
+    <Compile Include="Helpers\Notifications.cs" />
     <Compile Include="Helpers\ValidationBase.cs" />
     <Compile Include="Helpers\ValidationErrors.cs" />
     <Compile Include="Model\EntitesWithType.cs" />
     <Compile Include="Model\Entity.cs" />
+    <Compile Include="ViewModel\CustomKeyboardViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MeasurementGraphViewModel.cs" />
     <Compile Include="ViewModel\NetworkDisplayViewModel.cs" />
     <Compile Include="ViewModel\NetworkEntitesViewModel.cs" />
+    <Compile Include="Views\CustomKeyboard.xaml.cs">
+      <DependentUpon>CustomKeyboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -125,6 +130,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CustomKeyboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

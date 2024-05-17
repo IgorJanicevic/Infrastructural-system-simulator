@@ -55,7 +55,6 @@
                 Grid.Row="0"
                 Height="600"
                 Content="{Binding CurrentViewModel}" />
-
             <Separator
                 Grid.Row="1"
                 Width="330"
@@ -139,7 +138,10 @@
                         Height="40"
                         Source="/Resources/Images/icons8-back-40 (1).png" />
                 </Button>
+
             </StackPanel>
+
+
         </Grid>
     </Grid>
 </Window>

@@ -27,8 +27,8 @@ namespace NetworkService.ViewModel
         private NetworkDisplayViewModel networkdisplayViewModel;
         private MeasurementGraphViewModel measurementGraphViewModel;
         private BindableBase currentViewModel;
-        private Entity LastAdded { get; set; }
-        private Entity LastDeleted { get; set; }
+        private Stack<Entity> LastAdded { get; set; }
+        private Stack<Entity> LastDeleted { get; set; }
       
         public static Stack<string> CommandsHistory { get; set; }
         public BindableBase CurrentViewModel
@@ -80,14 +80,14 @@ namespace NetworkService.ViewModel
             {
                 CommandsHistory.Push("add");
                 Entites.Add(temp.Item1);
-                LastAdded = temp.Item1;
+                LastAdded.Push(temp.Item1);
                 SaveData();
                 count++;
             }
             else
             {
                 CommandsHistory.Push("delete");
-                LastDeleted = temp.Item1;
+                LastDeleted.Push(temp.Item1);
                 Entites.Remove(temp.Item1);
                 SaveData();
                 count--;
@@ -98,6 +98,8 @@ namespace NetworkService.ViewModel
         private void LoadData()
         {
             CommandsHistory = new Stack<string>();
+            LastAdded = new Stack<Entity>();
+            LastDeleted = new Stack<Entity>();
             Entites = serializer.DeSerializeObject<ObservableCollection<Entity>>("Entites.xml");
             count = Entites.Count;
         }
@@ -125,17 +127,19 @@ namespace NetworkService.ViewModel
 
         private void UndoDelete()
         {
-            Entites.Add(LastDeleted);
+            Entites.Add(LastDeleted.Pop());
             SaveData();
             Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
+            Messenger.Default.Send<NotificationContent>(NotificationsCollection.CreateSuccessToastNotification());
+
         }
 
         private void UndoAdd()
         {
-            Entites.Remove(LastAdded);
+            Entites.Remove(LastAdded.Pop());
             SaveData();
             Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
-            //Notificitaions
+            Messenger.Default.Send<NotificationContent>(NotificationsCollection.DeleteSuccessToastNotification());
 
         }
 
@@ -178,6 +182,8 @@ namespace NetworkService.ViewModel
             CommandsHistory.Push(LastNavigation);
             LastNavigation= destination;
         }
+
+        
         private void createListener()
         {
             var tcp = new TcpListener(IPAddress.Any, 25675);
@@ -224,6 +230,7 @@ namespace NetworkService.ViewModel
                                 Entites[id].Update(measure);
                                 LogData.Log($"{id}|{measure}");
                                 Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
+
                             }
                             catch(Exception ex) { }
                             {

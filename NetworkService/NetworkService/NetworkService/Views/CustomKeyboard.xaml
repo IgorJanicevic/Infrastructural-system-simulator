@@ -1,0 +1,241 @@
+﻿<UserControl
+    x:Class="NetworkService.Views.CustomKeyboard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NetworkService.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+    d:DesignHeight="200"
+    d:DesignWidth="360"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <viewModel:CustomKeyboardViewModel />
+    </UserControl.DataContext>
+    <StackPanel
+        Grid.RowSpan="3"
+        Height="200"
+        Margin="0,0,3,0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Bottom"
+        Background="White"
+        Orientation="Vertical">
+        <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="1" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="2" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="3" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="4" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="5" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="6" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="7" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="8" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="9" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="0" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="Q" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="W" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="E" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="R" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="T" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="Y" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="U" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="I" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="O" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="P" />
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="A" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="S" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="D" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="F" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="G" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="H" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="J" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="K" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="L" />
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="Z" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="X" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="C" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="V" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="B" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="N" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="M" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="," />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="3"
+                Content="." />
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button
+                Width="50"
+                Height="30"
+                Margin="3"
+                Content="DEL" />
+            <Button
+                Width="200"
+                Height="30"
+                Margin="3"
+                Content="SPACE" />
+            <Button
+                Width="50"
+                Height="30"
+                Margin="3"
+                Content="ENTER" />
+
+        </StackPanel>
+    </StackPanel>
+</UserControl>
