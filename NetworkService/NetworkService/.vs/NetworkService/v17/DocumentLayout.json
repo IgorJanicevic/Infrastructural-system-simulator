@@ -1,0 +1,106 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\networkentitesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\networkentitesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|c:\\users\\homepc\\documents\\github\\infrastructural-system-simulator\\networkservice\\networkservice\\networkservice\\viewmodel\\customkeyboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\customkeyboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\views\\customkeyboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\customkeyboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\views\\customkeyboard.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\customkeyboard.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\views\\networkentitesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkentitesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CustomKeyboardViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\CustomKeyboardViewModel.cs",
+              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\CustomKeyboardViewModel.cs",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\CustomKeyboardViewModel.cs",
+              "RelativeToolTip": "NetworkService\\ViewModel\\CustomKeyboardViewModel.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAcwB0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T17:35:54.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NetworkEntitesViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
+              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
+              "RelativeToolTip": "NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
+              "ViewState": "AQIAAPAAAAAAAAAAAAAmwPoAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T17:32:53.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CustomKeyboard.xaml",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\CustomKeyboard.xaml",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\CustomKeyboard.xaml",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\CustomKeyboard.xaml",
+              "RelativeToolTip": "NetworkService\\Views\\CustomKeyboard.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-25T17:36:22.405Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CustomKeyboard.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\CustomKeyboard.xaml.cs",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\CustomKeyboard.xaml.cs",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\CustomKeyboard.xaml.cs",
+              "RelativeToolTip": "NetworkService\\Views\\CustomKeyboard.xaml.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABwAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T17:39:27.613Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NetworkEntitesView.xaml",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitesView.xaml",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkEntitesView.xaml",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitesView.xaml",
+              "RelativeToolTip": "NetworkService\\Views\\NetworkEntitesView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-25T17:32:51.592Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

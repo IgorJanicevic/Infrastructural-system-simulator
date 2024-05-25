@@ -139,8 +139,7 @@ namespace NetworkService.ViewModel
             Entites.Remove(LastAdded.Pop());
             SaveData();
             Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
-            Messenger.Default.Send<NotificationContent>(NotificationsCollection.DeleteSuccessToastNotification());
-
+            Messenger.Default.Send<NotificationContent>(NotificationsCollection.DeleteSuccessToastNotification());           
         }
 
         private string LastNavigation = "homeView";

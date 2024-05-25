@@ -3,10 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="clr-namespace:Projekat.Helpers"
+    xmlns:helpers="clr-namespace:NetworkService.Helpers"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:NetworkService.Model"
     xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+    xmlns:views="clr-namespace:NetworkService.Views"
     d:DesignHeight="600"
     d:DesignWidth="360"
     mc:Ignorable="d">
@@ -18,11 +20,18 @@
 
 
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <helpers:BoolToVisibilityConverter x:Key="CustomKeyboardVisibilityConverter" />
+        <helpers:SumConverter x:Key="SumConverter" />
+        <helpers:VerticalAlignmentConverter x:Key="VerticalAlignmentConverter" />
 
-
+        <DataTemplate x:Key="CustomKeyboardTemplate" DataType="{x:Type viewModel:CustomKeyboardViewModel}">
+            <views:CustomKeyboard />
+        </DataTemplate>
 
         <DataTemplate DataType="{x:Type model:Entity}">
             <Grid>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.5*" />
                     <ColumnDefinition Width="1.5*" />
@@ -76,202 +85,245 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="7*" />
-            </Grid.RowDefinitions>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="930" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.RowSpan="2" Background="White">
+                    <Border Style="{StaticResource borderes}">
+                        <Grid
+                            Height="Auto"
+                            Margin="0,5,0,5"
+                            Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Margin="6,0,6,12" Orientation="Vertical">
+                                <Label Content="Add new object" Style="{StaticResource headerLabel}" />
+                                <Label Content="Name:" FontSize="20" />
+                                <TextBox
+                                    Name="NameAddTextBox"
+                                    FontSize="20"
+                                    Style="{StaticResource textboxSearch}"
+                                    Text="{Binding NameAddText}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="GotFocus">
+                                            <i:InvokeCommandAction Command="{Binding ShowKeyboardCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="LostFocus">
+                                            <i:InvokeCommandAction Command="{Binding HideKeyboardCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <i:Interaction.Behaviors>
+                                        <helpers:KeyboardBehavior />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Margin="6,0,6,15">
+                                <Label Content="Type:" FontSize="20" />
+                                <ComboBox
+                                    x:Name="TypesAddComboBox"
+                                    Grid.Row="2"
+                                    Width="328"
+                                    Height="50"
+                                    BorderThickness="0"
+                                    FontSize="20"
+                                    ItemsSource="{Binding TypesList}"
+                                    SelectedItem="{Binding TypeAddText}" />
+                            </StackPanel>
 
 
-            <StackPanel Grid.RowSpan="2" Background="White">
-                <Border Style="{StaticResource borderes}">
-                    <Grid
-                        Height="Auto"
-                        Margin="0,5,0,5"
-                        Background="Transparent">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <StackPanel Margin="6,0,6,12" Orientation="Vertical">
-                            <Label Content="Add new object" Style="{StaticResource headerLabel}" />
-                            <Label Content="Name:" FontSize="20" />
-                            <TextBox
-                                Name="NameAddTextBox"
-                                FontSize="20"
-                                Style="{StaticResource textboxSearch}"
-                                Text="{Binding NameAddText}" />
-                        </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                <Button
+                                    x:Name="ImageAddButton"
+                                    Grid.Row="3"
+                                    Width="130"
+                                    Margin="6,15,6,15"
+                                    Command="{Binding UploadImage}"
+                                    Content="🖼 Image"
+                                    Style="{StaticResource btnApp}" />
+                                <Button
+                                    x:Name="AddButton"
+                                    Grid.Row="3"
+                                    Width="130"
+                                    Margin="62,15,6,15"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding AddNewEntity}"
+                                    Style="{StaticResource btnApp}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
 
-                        <StackPanel Grid.Row="2" Margin="6,0,6,15">
-                            <Label Content="Type:" FontSize="20" />
-                            <ComboBox
-                                x:Name="TypesAddComboBox"
-                                Grid.Row="2"
-                                Width="328"
-                                Height="50"
-                                BorderThickness="0"
-                                FontSize="20"
-                                ItemsSource="{Binding TypesList}"
-                                SelectedItem="{Binding TypeAddText}" />
-                        </StackPanel>
+                    <Border Style="{StaticResource borderes}">
+                        <Grid Height="Auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-
-                        <StackPanel Grid.Row="3" Orientation="Horizontal">
-                            <Button
-                                x:Name="ImageAddButton"
-                                Grid.Row="3"
-                                Width="130"
-                                Margin="6,15,6,15"
-                                Command="{Binding UploadImage}"
-                                Content="🖼 Image"
-                                Style="{StaticResource btnApp}" />
-                            <Button
-                                x:Name="AddButton"
-                                Grid.Row="3"
-                                Width="130"
-                                Margin="62,15,6,15"
-                                HorizontalAlignment="Right"
-                                Command="{Binding AddNewEntity}"
-                                Style="{StaticResource btnApp}" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <Border Style="{StaticResource borderes}">
-                    <Grid Height="Auto">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Label
-                            Grid.Column="1"
-                            Content="Search"
-                            Foreground="{StaticResource UIPrimaryColor}"
-                            Style="{StaticResource headerLabel}" />
-                        <StackPanel
-                            Grid.Row="1"
-                            Margin="8,12,0,0"
-                            Orientation="Horizontal">
                             <Label
+                                Grid.Column="1"
+                                Content="Search"
+                                Foreground="{StaticResource UIPrimaryColor}"
+                                Style="{StaticResource headerLabel}" />
+                            <StackPanel
                                 Grid.Row="1"
-                                Content="Id:"
-                                FontSize="20" />
-                            <TextBox
+                                Margin="8,12,0,0"
+                                Orientation="Horizontal">
+                                <Label
+                                    Grid.Row="1"
+                                    Content="Id:"
+                                    FontSize="20" />
+                                <TextBox
+                                    Grid.Row="1"
+                                    Width="70"
+                                    Style="{StaticResource textboxSearch}"
+                                    Text="{Binding IdFilterText}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="GotFocus">
+                                            <i:InvokeCommandAction Command="{Binding ShowKeyboardCommand}" />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="LostFocus">
+                                            <i:InvokeCommandAction Command="{Binding HideKeyboardCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <i:Interaction.Behaviors>
+                                        <helpers:KeyboardBehavior />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel
                                 Grid.Row="1"
-                                Width="70"
-                                Style="{StaticResource textboxSearch}"
-                                Text="{Binding IdFilterText}" />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Grid.ColumnSpan="2"
-                            Margin="10,9,0,0"
-                            Orientation="Horizontal">
-                            <Viewbox Width="50" Margin="0,0,20,0">
-                                <RadioButton
-                                    x:Name="EqualsButton"
-                                    VerticalAlignment="Center"
-                                    Background="{StaticResource UIPrimaryColor}"
-                                    Content="="
-                                    GroupName="FilterRadioButton"
-                                    IsChecked="{Binding EqualsChecked}" />
-                            </Viewbox>
-                            <Viewbox Width="50" Margin="0,0,20,0">
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Margin="10,9,0,0"
+                                Orientation="Horizontal">
+                                <Viewbox Width="50" Margin="0,0,20,0">
+                                    <RadioButton
+                                        x:Name="EqualsButton"
+                                        VerticalAlignment="Center"
+                                        Background="{StaticResource UIPrimaryColor}"
+                                        Content="="
+                                        GroupName="FilterRadioButton"
+                                        IsChecked="{Binding EqualsChecked}" />
+                                </Viewbox>
+                                <Viewbox Width="50" Margin="0,0,20,0">
 
-                                <RadioButton
-                                    x:Name="LTButton"
-                                    VerticalAlignment="Center"
-                                    Background="{StaticResource UIPrimaryColor}"
-                                    Content="&lt;"
-                                    GroupName="FilterRadioButton"
-                                    IsChecked="{Binding LtChecked}" />
-                            </Viewbox>
-                            <Viewbox Width="50">
+                                    <RadioButton
+                                        x:Name="LTButton"
+                                        VerticalAlignment="Center"
+                                        Background="{StaticResource UIPrimaryColor}"
+                                        Content="&lt;"
+                                        GroupName="FilterRadioButton"
+                                        IsChecked="{Binding LtChecked}" />
+                                </Viewbox>
+                                <Viewbox Width="50">
 
-                                <RadioButton
-                                    x:Name="GTButton"
-                                    VerticalAlignment="Center"
-                                    Background="{StaticResource UIPrimaryColor}"
-                                    Content="&gt;"
-                                    GroupName="FilterRadioButton"
-                                    IsChecked="{Binding GtChecked}" />
-                            </Viewbox>
+                                    <RadioButton
+                                        x:Name="GTButton"
+                                        VerticalAlignment="Center"
+                                        Background="{StaticResource UIPrimaryColor}"
+                                        Content="&gt;"
+                                        GroupName="FilterRadioButton"
+                                        IsChecked="{Binding GtChecked}" />
+                                </Viewbox>
 
 
 
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Row="2"
-                            Grid.ColumnSpan="3"
-                            Margin="6,0,6,20">
-                            <Label Content="Type:" FontSize="20" />
-                            <ComboBox
-                                x:Name="TypesFilterComboBox"
+                            </StackPanel>
+                            <StackPanel
                                 Grid.Row="2"
                                 Grid.ColumnSpan="3"
-                                Width="328"
-                                Height="50"
-                                BorderThickness="0"
-                                FontSize="20"
-                                ItemsSource="{Binding TypesFilter}"
-                                SelectedItem="{Binding TypesFilterText}" />
-                        </StackPanel>
+                                Margin="6,0,6,20">
+                                <Label
+                                    Content="Type:"
+                                    FontFamily="UIPrimaryFont"
+                                    FontSize="20" />
+                                <ComboBox
+                                    x:Name="TypesFilterComboBox"
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="3"
+                                    Width="328"
+                                    Height="50"
+                                    BorderThickness="0"
+                                    FontSize="20"
+                                    ItemsSource="{Binding TypesFilter}"
+                                    SelectedItem="{Binding TypesFilterText}" />
+                            </StackPanel>
 
-                        <Button
-                            Grid.Row="2"
-                            Grid.ColumnSpan="3"
-                            Margin="6,100,8,10"
-                            Command="{Binding FilterEntites}"
-                            Content="View"
-                            Style="{StaticResource btnApp}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.ColumnSpan="3"
+                                Margin="6,100,8,10"
+                                Command="{Binding FilterEntites}"
+                                Content="View"
+                                Style="{StaticResource btnApp}" />
 
-                        <Border
-                            Grid.Row="4"
-                            Grid.ColumnSpan="3"
-                            Height="315"
-                            Background="Transparent"
-                            BorderThickness="1"
-                            Style="{StaticResource borderes}">
+                            <Border
+                                Grid.Row="4"
+                                Grid.ColumnSpan="3"
+                                Height="315"
+                                Background="Transparent"
+                                BorderThickness="1"
+                                Style="{StaticResource borderes}">
 
-                            <ListView
-                                x:Name="EntitesListView"
-                                Height="Auto"
-                                Margin="4"
-                                Background="AliceBlue"
-                                BorderThickness="0"
-                                ItemsSource="{Binding EntitesForView}"
-                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                SelectedItem="{Binding SelectedEntity}"
-                                SelectionMode="Single">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="Background" Value="White" />
-                                        <Setter Property="Padding" Value="0" />
-                                        <Setter Property="Margin" Value="0,5,5,5" />
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
+                                <ListView
+                                    x:Name="EntitesListView"
+                                    Height="Auto"
+                                    Margin="4"
+                                    Background="AliceBlue"
+                                    BorderThickness="0"
+                                    ItemsSource="{Binding EntitesForView}"
+                                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                    SelectedItem="{Binding SelectedEntity}"
+                                    SelectionMode="Single">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Background" Value="White" />
+                                            <Setter Property="Padding" Value="0" />
+                                            <Setter Property="Margin" Value="0,5,5,5" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
 
-                        </Border>
-                    </Grid>
-                </Border>
-            </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
 
-        </Grid>
-    </ScrollViewer>
+        <StackPanel
+            Grid.Row="1"
+            Height="{Binding HeightKeyboard}"
+            Margin="0,413,0,0"
+            CanVerticallyScroll="False">
+            <views:CustomKeyboard
+                Height="200"
+                SelectiveScrollingGrid.SelectiveScrollingOrientation="None"
+                Visibility="{Binding IsKeyboardVisible}" />
+        </StackPanel>
+    </Grid>
+
+
+
 </UserControl>

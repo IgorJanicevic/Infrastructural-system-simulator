@@ -13,8 +13,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Interactivity;
 using System.Windows.Media;
 
 namespace NetworkService.ViewModel
@@ -24,7 +26,7 @@ namespace NetworkService.ViewModel
     {
 
         private ObservableCollection<Entity> _entites;
-
+        public CustomKeyboardViewModel CustomKeyboard;
         public ObservableCollection<Entity> Entites
         {
             get { return _entites; }
@@ -60,7 +62,6 @@ namespace NetworkService.ViewModel
         private string _nameAddText;
         private Types _typeAddText;
         private string _imagePath;
-
         private string _typeFilterText;
         private int _idFilterText;
         private string _selectedFilter;
@@ -165,9 +166,8 @@ namespace NetworkService.ViewModel
                 }
             }
         }
-
-        private bool _isKeyboardVisible;
-        public bool IsKeyboardVisible
+        private Visibility _isKeyboardVisible = Visibility.Hidden;
+        public Visibility IsKeyboardVisible
         {
             get { return _isKeyboardVisible; }
             set
@@ -176,7 +176,6 @@ namespace NetworkService.ViewModel
                 OnPropertyChanged(nameof(IsKeyboardVisible));
             }
         }
-
         public Types TypeAddText
         {
             get { return _typeAddText; }
@@ -206,25 +205,58 @@ namespace NetworkService.ViewModel
                 }
             }
         }
+
+        private int _heightKeyboard = 0;
+        public int HeightKeyboard
+        {
+            get { return (int)_heightKeyboard; }
+            set { 
+                _heightKeyboard=value;
+                OnPropertyChanged(nameof(HeightKeyboard));
+            }
+        }
+
+        private TextBox _selectedTextBox;
+
+        public TextBox SelectedTextBox
+        {
+            get { return _selectedTextBox; }
+            set
+            {
+                if( _selectedTextBox != value )
+                {
+                    _selectedTextBox = value;
+                    OnPropertyChanged(nameof( SelectedTextBox));
+                }
+            }
+        }
+
+
+        #region def Commands
         public MyICommand AddNewEntity { get; set; }
         public MyICommand UploadImage { get; set; }
         public MyICommand FilterEntites { get; set; }
         public MyICommand<Entity> DeleteEntity { get; set; }
-        public MyICommand ShowKeyboardCommand { get; private set; }
+        public MyICommand<object> ShowKeyboardCommand { get; set; }
+        public MyICommand HideKeyboardCommand { get; set; }
+        #endregion
 
-        public CustomKeyboardViewModel CustomKeyboard;
+        #region main
         public NetworkEntitesViewModel()
         {
         }
+
         public NetworkEntitesViewModel(ObservableCollection<Entity> entites)
         {
-            CustomKeyboard = new CustomKeyboardViewModel();
+            CustomKeyboardViewModel ck= new CustomKeyboardViewModel();
             Messenger.Default.Register<ObservableCollection<Entity>>(this, UpdateValue);
+            _isKeyboardVisible = Visibility.Hidden;
             LoadData(entites);
             LoadCommands();
 
         }
-   
+        #endregion
+
         private void UpdateValue(ObservableCollection<Entity> temp)
         {
             if (Entites.Count == temp.Count)
@@ -243,7 +275,6 @@ namespace NetworkService.ViewModel
             }
 
         }
-
         private List<Entity> FilterUpdate()
         {            
             List<Entity> tempCollection= (EntitesForView.Where(x=> Entites.Contains(x)).ToList());
@@ -251,7 +282,6 @@ namespace NetworkService.ViewModel
             return tempCollection;
 
         }
-
 
         #region Commands Function
         private void Filtering()
@@ -323,8 +353,16 @@ namespace NetworkService.ViewModel
                 
                 if (ImagePath == null)
                 {
-                    Messenger.Default.Send<NotificationContent>(NotificationsCollection.CreateImageFaildToastNotification());
-                    error=true;
+                    //Messenger.Default.Send<NotificationContent>(NotificationsCollection.CreateImageFaildToastNotification());
+                    if (TypeAddText == Types.Generator)
+                    {
+                        ImagePath = "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Resources\\Images\\generator_default.jpg";
+                    }
+                    else
+                    {
+                        ImagePath = "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Resources\\Images\\panel_default.jpg";
+                    }
+                    //error=false;
                 }
                 if (!error)
                 {
@@ -356,13 +394,28 @@ namespace NetworkService.ViewModel
                 Messenger.Default.Send<NotificationContent>(NotificationsCollection.DeleteSuccessToastNotification());
             }
         }
-        #endregion
-
-        private void ShowKeyboard()
+        private void OnShowKeyboard(object selected)
         {
-            IsKeyboardVisible = true;
+     
+            IsKeyboardVisible = Visibility.Visible;
+            HeightKeyboard = 200;
+            SelectedTextBox = selected as TextBox;
+            OnPropertyChanged(nameof(IsKeyboardVisible));
+            OnPropertyChanged(nameof(HeightKeyboard));
+            OnPropertyChanged(nameof(SelectedTextBox));
+
         }
 
+        private void OnHideKeyboard()
+        {
+            IsKeyboardVisible = Visibility.Hidden;
+            HeightKeyboard = 0;
+            SelectedTextBox = null;
+            OnPropertyChanged(nameof(IsKeyboardVisible));
+            OnPropertyChanged(nameof(HeightKeyboard));
+            OnPropertyChanged(nameof(SelectedTextBox));
+        }
+        #endregion
 
         #region Loads
         private void LoadData(ObservableCollection<Entity> entites)
@@ -376,9 +429,10 @@ namespace NetworkService.ViewModel
             AddNewEntity = new MyICommand(OnAdd);
             UploadImage = new MyICommand(AddImage);
             FilterEntites = new MyICommand(Filtering);
-            ShowKeyboardCommand = new MyICommand(ShowKeyboard);
             DeleteEntity = new MyICommand<Entity>(DeleteFunc);
             TypesFilter = new List<string>() { "All", "Panel", "Generator" };
+            ShowKeyboardCommand = new MyICommand<object>(OnShowKeyboard);
+            HideKeyboardCommand = new MyICommand(OnHideKeyboard);
 
         }
 

@@ -192,6 +192,7 @@
                 X2="320"
                 Y1="210"
                 Y2="210" />
+
             <Line
                 x:Name="yAxis"
                 HorizontalAlignment="Left"
