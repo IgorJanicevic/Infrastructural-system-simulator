@@ -283,6 +283,8 @@ namespace NetworkService.ViewModel
         {
             Messenger.Default.Register<ObservableCollection<Entity>>(this, UpdateValue);
             LoadData(entites);
+
+
             LoadCommands();
 
         }

@@ -3,7 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\views\\measurementgraphview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\networkentitesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\networkentitesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\model\\enitityincanvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\model\\enitityincanvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|c:\\users\\homepc\\documents\\github\\infrastructural-system-simulator\\networkservice\\networkservice\\networkservice\\views\\measurementgraphview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\measurementgraphview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
@@ -11,16 +19,12 @@
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\customkeyboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|c:\\users\\homepc\\documents\\github\\infrastructural-system-simulator\\networkservice\\networkservice\\networkservice\\views\\networkdisplayview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\views\\networkdisplayview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkdisplayview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\views\\networkentitesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkentitesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\networkentitesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\networkentitesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\helpers\\lastmeasuretobackgroundcolor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\networkdisplayviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\networkdisplayviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\model\\enitityincanvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\model\\enitityincanvas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,7 +66,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "MeasurementGraphView.xaml",
               "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\MeasurementGraphView.xaml",
               "RelativeDocumentMoniker": "NetworkService\\Views\\MeasurementGraphView.xaml",
@@ -78,30 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NetworkEntitesView.xaml",
-              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitesView.xaml",
-              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkEntitesView.xaml",
-              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitesView.xaml",
-              "RelativeToolTip": "NetworkService\\Views\\NetworkEntitesView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-28T14:42:51.171Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "NetworkDisplayView.xaml",
-              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml",
-              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkDisplayView.xaml",
-              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml",
-              "RelativeToolTip": "NetworkService\\Views\\NetworkDisplayView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-28T13:46:15.996Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "LastMeasureToBackgroundColor.cs",
               "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Helpers\\LastMeasureToBackgroundColor.cs",
               "RelativeDocumentMoniker": "NetworkService\\Helpers\\LastMeasureToBackgroundColor.cs",
@@ -113,7 +90,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\App.xaml",
               "RelativeDocumentMoniker": "NetworkService\\App.xaml",
@@ -138,30 +115,65 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "EnitityInCanvas.cs",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EnitityInCanvas.cs",
+              "RelativeDocumentMoniker": "NetworkService\\Model\\EnitityInCanvas.cs",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EnitityInCanvas.cs",
+              "RelativeToolTip": "NetworkService\\Model\\EnitityInCanvas.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAxwB8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T16:11:49.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NetworkEntitesViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
+              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
+              "RelativeToolTip": "NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
+              "ViewState": "AQIAANYAAAAAAAAAAAA1wB4BAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T15:15:39.34Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NetworkDisplayView.xaml",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkDisplayView.xaml",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml",
+              "RelativeToolTip": "NetworkService\\Views\\NetworkDisplayView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-28T13:46:15.996Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NetworkEntitesView.xaml",
+              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitesView.xaml",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkEntitesView.xaml",
+              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitesView.xaml",
+              "RelativeToolTip": "NetworkService\\Views\\NetworkEntitesView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-28T14:42:51.171Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "CustomKeyboard.xaml",
               "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\CustomKeyboard.xaml",
               "RelativeDocumentMoniker": "NetworkService\\Views\\CustomKeyboard.xaml",
               "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Views\\CustomKeyboard.xaml",
               "RelativeToolTip": "NetworkService\\Views\\CustomKeyboard.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-28T09:58:05.962Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-28T09:58:05.962Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "NetworkEntitesViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
-              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
-              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
-              "RelativeToolTip": "NetworkService\\ViewModel\\NetworkEntitesViewModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T15:15:39.34Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "NetworkDisplayViewModel.cs",
               "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
               "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
@@ -182,18 +194,6 @@
               "ViewState": "AQIAANcAAAAAAAAAAAAQwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-28T19:24:39.962Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "EnitityInCanvas.cs",
-              "DocumentMoniker": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EnitityInCanvas.cs",
-              "RelativeDocumentMoniker": "NetworkService\\Model\\EnitityInCanvas.cs",
-              "ToolTip": "C:\\Users\\HomePC\\Documents\\GitHub\\Infrastructural-system-simulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EnitityInCanvas.cs",
-              "RelativeToolTip": "NetworkService\\Model\\EnitityInCanvas.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAAwB8AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T16:11:49.428Z"
             },
             {
               "$type": "Document",
