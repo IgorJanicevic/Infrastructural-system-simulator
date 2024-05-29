@@ -6,6 +6,9 @@
     <Name>Panel-GFT</Name>
     <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\panel1.jpg</ImagePath>
     <Measures>
+      <int>7</int>
+      <int>2</int>
+      <int>2</int>
       <int>6</int>
       <int>4</int>
       <int>6</int>
@@ -22,7 +25,7 @@
       <int>3</int>
       <int>2</int>
     </Measures>
-    <LastMeasure>6</LastMeasure>
+    <LastMeasure>7</LastMeasure>
   </Entity>
   <Entity>
     <Id>4</Id>
@@ -30,6 +33,7 @@
     <Name>Sea-HH1</Name>
     <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\generator2.jpg</ImagePath>
     <Measures>
+      <int>8</int>
       <int>6</int>
       <int>7</int>
       <int>2</int>
@@ -51,7 +55,7 @@
       <int>1</int>
       <int>5</int>
     </Measures>
-    <LastMeasure>6</LastMeasure>
+    <LastMeasure>8</LastMeasure>
   </Entity>
   <Entity>
     <Id>2</Id>
@@ -82,6 +86,38 @@
       <int>3</int>
     </Measures>
     <LastMeasure>9</LastMeasure>
+  </Entity>
+  <Entity>
+    <Id>1</Id>
+    <Type>Generator</Type>
+    <Name>Nova-OP</Name>
+    <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\generator1.jpg</ImagePath>
+    <Measures>
+      <int>8</int>
+      <int>5</int>
+      <int>6</int>
+      <int>1</int>
+      <int>2</int>
+      <int>7</int>
+      <int>2</int>
+      <int>2</int>
+      <int>0</int>
+      <int>7</int>
+      <int>2</int>
+      <int>2</int>
+      <int>8</int>
+      <int>3</int>
+      <int>9</int>
+      <int>7</int>
+      <int>0</int>
+      <int>5</int>
+      <int>8</int>
+      <int>9</int>
+      <int>0</int>
+      <int>1</int>
+      <int>0</int>
+    </Measures>
+    <LastMeasure>8</LastMeasure>
   </Entity>
   <Entity>
     <Id>7</Id>
@@ -124,36 +160,5 @@
       <int>5</int>
     </Measures>
     <LastMeasure>6</LastMeasure>
-  </Entity>
-  <Entity>
-    <Id>1</Id>
-    <Type>Generator</Type>
-    <Name>Nova-OP</Name>
-    <ImagePath>C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\generator1.jpg</ImagePath>
-    <Measures>
-      <int>5</int>
-      <int>6</int>
-      <int>1</int>
-      <int>2</int>
-      <int>7</int>
-      <int>2</int>
-      <int>2</int>
-      <int>0</int>
-      <int>7</int>
-      <int>2</int>
-      <int>2</int>
-      <int>8</int>
-      <int>3</int>
-      <int>9</int>
-      <int>7</int>
-      <int>0</int>
-      <int>5</int>
-      <int>8</int>
-      <int>9</int>
-      <int>0</int>
-      <int>1</int>
-      <int>0</int>
-    </Measures>
-    <LastMeasure>5</LastMeasure>
   </Entity>
 </ArrayOfEntity>

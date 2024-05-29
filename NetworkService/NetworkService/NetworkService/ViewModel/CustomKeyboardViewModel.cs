@@ -1,4 +1,5 @@
-﻿using NetworkService.Helpers;
+﻿using GalaSoft.MvvmLight.Messaging;
+using NetworkService.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,30 +14,21 @@ namespace NetworkService.ViewModel
     public class CustomKeyboardViewModel : BindableBase
     {
         private string _displayText = string.Empty;
-
         public string DisplayText
         {
             get { return _displayText; }
             set { SetProperty(ref _displayText, value); }
         }
-
-        public TextBox SelectedTextBox;
-
         public MyICommand<string> ButtonPressCommand { get; set; }
 
         public CustomKeyboardViewModel()
         {
             ButtonPressCommand = new MyICommand<string>(OnButtonPress);
-            
         }   
-
-        public void GetTextBox(TextBox selected)
-        {
-            SelectedTextBox = selected;
-        }
         
         private void OnButtonPress(object parameter)
         {
+            Console.WriteLine("GOOD");
             if (parameter == null)
                 return;
 
@@ -53,7 +45,7 @@ namespace NetworkService.ViewModel
             {
                 DisplayText += parameter;
             }
-
+            Messenger.Default.Send(new NotificationMessage("KeepKeyboardVisible"));
             Console.WriteLine(DisplayText);
             MessageBox.Show(DisplayText);
         }

@@ -20,14 +20,6 @@
 
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <helpers:BoolToVisibilityConverter x:Key="CustomKeyboardVisibilityConverter" />
-        <helpers:SumConverter x:Key="SumConverter" />
-        <helpers:VerticalAlignmentConverter x:Key="VerticalAlignmentConverter" />
-
-        <DataTemplate x:Key="CustomKeyboardTemplate" DataType="{x:Type viewModel:CustomKeyboardViewModel}">
-            <views:CustomKeyboard />
-        </DataTemplate>
 
         <DataTemplate DataType="{x:Type model:Entity}">
             <Grid>
@@ -110,21 +102,16 @@
                                 <Label Content="Add new object" Style="{StaticResource headerLabel}" />
                                 <Label Content="Name:" FontSize="20" />
                                 <TextBox
-                                    Name="NameAddTextBox"
+                                    x:Name="NameAddTextBox"
                                     FontSize="20"
                                     Style="{StaticResource textboxSearch}"
                                     Text="{Binding NameAddText}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="GotFocus">
-                                            <i:InvokeCommandAction Command="{Binding ShowKeyboardCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
-                                        </i:EventTrigger>
-                                        <i:EventTrigger EventName="LostFocus">
-                                            <i:InvokeCommandAction Command="{Binding HideKeyboardCommand}" />
+                                            <i:InvokeCommandAction Command="{Binding ShowKeyboardCommand}" CommandParameter="{Binding ElementName=NameAddTextBox, Mode=OneWay}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <i:Interaction.Behaviors>
-                                        <helpers:KeyboardBehavior />
-                                    </i:Interaction.Behaviors>
+
                                 </TextBox>
 
                             </StackPanel>
@@ -193,21 +180,16 @@
                                     Content="Id:"
                                     FontSize="20" />
                                 <TextBox
+                                    x:Name="IdFilterTextBox"
                                     Grid.Row="1"
                                     Width="70"
                                     Style="{StaticResource textboxSearch}"
                                     Text="{Binding IdFilterText}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="GotFocus">
-                                            <i:InvokeCommandAction Command="{Binding ShowKeyboardCommand}" />
-                                        </i:EventTrigger>
-                                        <i:EventTrigger EventName="LostFocus">
-                                            <i:InvokeCommandAction Command="{Binding HideKeyboardCommand}" />
+                                            <i:InvokeCommandAction Command="{Binding ShowKeyboardCommand}" CommandParameter="{Binding ElementName=IdFilterTextBox, Mode=OneWay}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <i:Interaction.Behaviors>
-                                        <helpers:KeyboardBehavior />
-                                    </i:Interaction.Behaviors>
                                 </TextBox>
                             </StackPanel>
                             <StackPanel
@@ -313,15 +295,357 @@
         </ScrollViewer>
 
         <StackPanel
-            Grid.Row="1"
+            Grid.RowSpan="3"
+            Width="360"
             Height="{Binding HeightKeyboard}"
-            Margin="0,413,0,0"
-            CanVerticallyScroll="False">
-            <views:CustomKeyboard
-                Height="200"
-                SelectiveScrollingGrid.SelectiveScrollingOrientation="None"
-                Visibility="{Binding IsKeyboardVisible}" />
+            Margin="0,20,3,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Background="{StaticResource UIPrimaryColor}"
+            Orientation="Vertical">
+            <StackPanel
+                Margin="0,5,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="1"
+                    Content="1" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="2"
+                    Content="2" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="3"
+                    Content="3" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="4"
+                    Content="4" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="5"
+                    Content="5" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="6"
+                    Content="6" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="7"
+                    Content="7" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="8"
+                    Content="8" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="9"
+                    Content="9" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="0"
+                    Content="0" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="Q"
+                    Content="Q" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="W"
+                    Content="W" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="E"
+                    Content="E" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="R"
+                    Content="R" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="T"
+                    Content="T" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="Y"
+                    Content="Y" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="U"
+                    Content="U" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="I"
+                    Content="I" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="O"
+                    Content="O" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="P"
+                    Content="P" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="A"
+                    Content="A" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="S"
+                    Content="S" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="D"
+                    Content="D" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="F"
+                    Content="F" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="G"
+                    Content="G" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="H"
+                    Content="H" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="J"
+                    Content="J" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="K"
+                    Content="K" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="L"
+                    Content="L" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="Z"
+                    Content="Z" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="X"
+                    Content="X" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="C"
+                    Content="C" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="V"
+                    Content="V" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="B"
+                    Content="B" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="N"
+                    Content="N" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="M"
+                    Content="M" />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter=","
+                    Content="," />
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="."
+                    Content="." />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button
+                    Width="50"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="DEL"
+                    Content="DEL" />
+                <Button
+                    Width="200"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter=" "
+                    Content="SPACE" />
+                <Button
+                    Width="50"
+                    Height="30"
+                    Margin="2"
+                    Background="White"
+                    Command="{Binding ButtonPressCommand}"
+                    CommandParameter="ENTER"
+                    Content="ENTER" />
+            </StackPanel>
         </StackPanel>
+
     </Grid>
 
 

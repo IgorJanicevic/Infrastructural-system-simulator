@@ -231,7 +231,7 @@ namespace NetworkService.ViewModel
                                 Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
 
                             }
-                            catch(Exception ex) { }
+                            catch(Exception) { }
                             {
                                 Console.WriteLine("Error with create measure! " );
                             }

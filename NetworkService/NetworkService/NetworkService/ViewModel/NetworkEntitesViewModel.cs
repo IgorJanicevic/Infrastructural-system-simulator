@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Win32;
 using MVVMLight.Messaging;
 using NetworkService.Helpers;
 using NetworkService.Model;
@@ -18,6 +19,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
+using Messenger = MVVMLight.Messaging.Messenger;
 
 namespace NetworkService.ViewModel
 {
@@ -26,7 +28,6 @@ namespace NetworkService.ViewModel
     {
 
         private ObservableCollection<Entity> _entites;
-        public CustomKeyboardViewModel CustomKeyboard;
         public ObservableCollection<Entity> Entites
         {
             get { return _entites; }
@@ -57,7 +58,7 @@ namespace NetworkService.ViewModel
         public List<string> TypesFilter { get; set; }
         
 
-        private DataIO _serializer= new DataIO();
+        private readonly DataIO _serializer= new DataIO();
         private Entity _selectedEntity= new Entity();
         private string _nameAddText;
         private Types _typeAddText;
@@ -166,16 +167,6 @@ namespace NetworkService.ViewModel
                 }
             }
         }
-        private Visibility _isKeyboardVisible = Visibility.Hidden;
-        public Visibility IsKeyboardVisible
-        {
-            get { return _isKeyboardVisible; }
-            set
-            {
-                _isKeyboardVisible = value;
-                OnPropertyChanged(nameof(IsKeyboardVisible));
-            }
-        }
         public Types TypeAddText
         {
             get { return _typeAddText; }
@@ -216,21 +207,6 @@ namespace NetworkService.ViewModel
             }
         }
 
-        private TextBox _selectedTextBox;
-
-        public TextBox SelectedTextBox
-        {
-            get { return _selectedTextBox; }
-            set
-            {
-                if( _selectedTextBox != value )
-                {
-                    _selectedTextBox = value;
-                    OnPropertyChanged(nameof( SelectedTextBox));
-                }
-            }
-        }
-
 
         #region def Commands
         public MyICommand AddNewEntity { get; set; }
@@ -238,7 +214,64 @@ namespace NetworkService.ViewModel
         public MyICommand FilterEntites { get; set; }
         public MyICommand<Entity> DeleteEntity { get; set; }
         public MyICommand<object> ShowKeyboardCommand { get; set; }
-        public MyICommand HideKeyboardCommand { get; set; }
+
+        #region keyboard
+
+        public bool First=true;
+
+        private string _displayText = string.Empty;
+        public string DisplayText
+        {
+            get { return _displayText; }
+            set { _displayText = value; }
+        }
+        public MyICommand<string> ButtonPressCommand { get; set; }
+
+        private TextBox _selectedTextBox;
+        public TextBox SelectedTextBox
+        {
+            get { return _selectedTextBox; }
+            set
+            {
+                _selectedTextBox=value;
+                OnPropertyChanged(nameof(SelectedTextBox));
+            }
+        }
+        private void OnButtonPress(string parameter)
+        {
+            if (parameter == null)
+                return;
+
+            if (parameter.Equals("DEL"))
+            {
+                if (!string.IsNullOrEmpty(DisplayText))
+                    DisplayText = DisplayText.Substring(0, DisplayText.Length - 1);
+            }
+            else if (parameter.Equals("ENTER"))
+            {
+                HeightKeyboard = 0;
+                DisplayText = "";
+                OnPropertyChanged(nameof(HeightKeyboard));
+                return;
+            }
+            else
+            {
+                DisplayText += parameter;
+            }
+            if (First)
+            {
+                NameAddText = DisplayText;
+            }
+            else
+            {
+                int temp = 0;
+                Int32.TryParse(DisplayText, out temp);
+                IdFilterText = temp;
+            }
+            
+        }
+        #endregion
+
         #endregion
 
         #region main
@@ -248,9 +281,7 @@ namespace NetworkService.ViewModel
 
         public NetworkEntitesViewModel(ObservableCollection<Entity> entites)
         {
-            CustomKeyboardViewModel ck= new CustomKeyboardViewModel();
             Messenger.Default.Register<ObservableCollection<Entity>>(this, UpdateValue);
-            _isKeyboardVisible = Visibility.Hidden;
             LoadData(entites);
             LoadCommands();
 
@@ -375,7 +406,7 @@ namespace NetworkService.ViewModel
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("ERROR!");
             }
@@ -396,25 +427,22 @@ namespace NetworkService.ViewModel
         }
         private void OnShowKeyboard(object selected)
         {
-     
-            IsKeyboardVisible = Visibility.Visible;
-            HeightKeyboard = 200;
-            SelectedTextBox = selected as TextBox;
-            OnPropertyChanged(nameof(IsKeyboardVisible));
+            HeightKeyboard = 190;
+            if (selected != null)
+            {
+                SelectedTextBox= selected as TextBox;
+                OnPropertyChanged(nameof(NameAddText));
+                if (SelectedTextBox.Name.Equals("NameAddTextBox"))
+                {
+                    First = true;
+                }
+                else
+                {
+                    First= false;
+                }
+            }
             OnPropertyChanged(nameof(HeightKeyboard));
-            OnPropertyChanged(nameof(SelectedTextBox));
-
-        }
-
-        private void OnHideKeyboard()
-        {
-            IsKeyboardVisible = Visibility.Hidden;
-            HeightKeyboard = 0;
-            SelectedTextBox = null;
-            OnPropertyChanged(nameof(IsKeyboardVisible));
-            OnPropertyChanged(nameof(HeightKeyboard));
-            OnPropertyChanged(nameof(SelectedTextBox));
-        }
+        }      
         #endregion
 
         #region Loads
@@ -426,13 +454,13 @@ namespace NetworkService.ViewModel
         }
         private void LoadCommands()
         {
+            ButtonPressCommand = new MyICommand<string>(OnButtonPress);
             AddNewEntity = new MyICommand(OnAdd);
             UploadImage = new MyICommand(AddImage);
             FilterEntites = new MyICommand(Filtering);
             DeleteEntity = new MyICommand<Entity>(DeleteFunc);
             TypesFilter = new List<string>() { "All", "Panel", "Generator" };
             ShowKeyboardCommand = new MyICommand<object>(OnShowKeyboard);
-            HideKeyboardCommand = new MyICommand(OnHideKeyboard);
 
         }
 

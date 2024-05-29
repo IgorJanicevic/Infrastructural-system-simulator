@@ -54,6 +54,18 @@ namespace NetworkService.ViewModel
             }
         }
 
+        private ObservableCollection<EnitityInCanvas> _entitesInCanvas = new ObservableCollection<EnitityInCanvas>() { null, null, null, null, null, null, null, null, null, null, null, null };
+        public ObservableCollection<EnitityInCanvas> EntitesInCanvas
+        {
+            get { return _entitesInCanvas; }
+            set
+            {
+                _entitesInCanvas = value;
+                OnPropertyChanged(nameof(EntitesInCanvas));
+                OnPropertyChanged(nameof(Entity));
+            }
+        }
+
         public NetworkDisplayViewModel()
         {
         }
@@ -61,7 +73,8 @@ namespace NetworkService.ViewModel
         public NetworkDisplayViewModel(ObservableCollection<Entity> entites)
         {
             DragStartCommand = new MyICommand<Entity>(OnDragStart);
-            DropCommand = new MyICommand<Tuple<DragEventArgs, Canvas>>(OnDrop);
+            DropCommand = new MyICommand<object>(OnDrop);
+            DeleteCommand = new MyICommand<object>(DeleteFromCanvas);
             Messenger.Default.Register<ObservableCollection<Entity>>(this, UpdateValue);
             LoadData(entites);
         }
@@ -73,6 +86,7 @@ namespace NetworkService.ViewModel
 
         private void LoadData(ObservableCollection<Entity> _entites)
         {
+            
             ObservableCollection<Entity> entities = new ObservableCollection<Entity>(_entites);
             EntitesWithTypesCollection = new ObservableCollection<EntitesWithType>();
             foreach(var type in Types)
@@ -83,6 +97,24 @@ namespace NetworkService.ViewModel
                 entity.Entites = new ObservableCollection<Entity>(tempEntity);
                 EntitesWithTypesCollection.Add(entity);
             }
+
+            foreach(EnitityInCanvas item in EntitesInCanvas)
+            {
+                if (item != null) {
+                    foreach (Entity enNew in entities)
+                    {
+                        if (item.Entity.Id == enNew.Id)
+                        {
+                            MessageBox.Show(enNew.LastMeasure.ToString());
+                            OnPropertyChanged(nameof(EntitesInCanvas));
+                            OnPropertyChanged(nameof(Entity));
+                            item.Entity.Update(enNew.LastMeasure);
+                            break;
+                        }
+                    }
+                }
+            }
+            
            
             
         }
@@ -90,11 +122,39 @@ namespace NetworkService.ViewModel
         #region DragAndDrop
 
         public MyICommand<Entity> DragStartCommand { get; set; }
-        public MyICommand<Tuple<DragEventArgs, Canvas>> DropCommand { get; set; }
+        public MyICommand<object> DropCommand { get; set; }
+
+        public MyICommand<object> DeleteCommand { get; set; }
 
 
 
 
+        public void DeleteFromCanvas(object canvas)
+        {
+            Entity EntityForBack=null;
+            Canvas canvas1= canvas as Canvas;
+            int id = GetCanvasId(canvas1);
+            if (EntitesInCanvas[id - 1] != null)
+            {
+                EntityForBack= EntitesInCanvas[id - 1].Entity;
+                EntitesInCanvas.RemoveAt(id - 1);
+                AddInTreeView(EntityForBack);
+                OnPropertyChanged(nameof(EntitesInCanvas));
+            }        
+           
+        }
+
+        private void AddInTreeView(Entity entity)
+        {
+            foreach(EntitesWithType el in EntitesWithTypesCollection)
+            {
+                if (el.Types == entity.Type)
+                {
+                    el.Entites.Add(entity);
+                    MessageBox.Show("Rad");
+                }
+            }
+        }
         public void OnDragStart(Entity entity)
         {
             if (entity != null)
@@ -106,35 +166,83 @@ namespace NetworkService.ViewModel
             }
        }
 
-
-        public void OnDrop(Tuple<DragEventArgs, Canvas> args)
+        
+        
+        public void OnDrop(object args)
         {
-            if (args == null) return;
+            Canvas canvas = args as Canvas;
 
-            var e = args.Item1;
-            var canvas = args.Item2;
-
-            if (e.Data.GetDataPresent(typeof(Entity)))
+            if (CanvasTaken(canvas))
             {
-                var droppedEntity = e.Data.GetData(typeof(Entity)) as Entity;
-                if (droppedEntity != null && canvas != null)
+                MessageBox.Show("Uspesno dodavanje");
+                OnPropertyChanged(nameof(EntitesInCanvas));
+                Entity forDelete = null;
+                EntitesWithType type = null;
+                foreach(EntitesWithType TYP in EntitesWithTypesCollection)
                 {
-                    var image = new Image
+                    foreach(Entity en in TYP.Entites)
                     {
-                        Source = new BitmapImage(new Uri(droppedEntity.ImagePath, UriKind.RelativeOrAbsolute)),
-                        Width = canvas.ActualWidth,
-                        Height = canvas.ActualHeight
-                    };
-                    canvas.Children.Clear();
-                    canvas.Children.Add(image);
+                        if (en.Id == SelectedEntity.Id)
+                        {
+                            forDelete = en;
+                            type = TYP;
+                            break;
+                        }
+                    }
+
                 }
+                type.Entites.Remove(forDelete);
+                
+            }
+
+                              
+        }
+
+        #region Temp Funcction For Converting
+        private int GetCanvasId(Canvas canvas)
+        {
+            string name = canvas.Name;
+            MessageBox.Show(name);
+            string br = name.Remove(0, 6);
+            return int.Parse(br);
+        }
+        private void AddOnCanvas(Canvas canvas)
+        {
+            string name = canvas.Name;
+            switch (name)
+            {
+                case "Canvas1": EntitesInCanvas.Insert(0, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas2": EntitesInCanvas.Insert(1, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas3": EntitesInCanvas.Insert(2, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas4": EntitesInCanvas.Insert(3, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas5": EntitesInCanvas.Insert(4, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas6": EntitesInCanvas.Insert(5, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas7": EntitesInCanvas.Insert(6, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas8": EntitesInCanvas.Insert(7, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas9": EntitesInCanvas.Insert(8, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas10": EntitesInCanvas.Insert(9, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas11": EntitesInCanvas.Insert(10, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                case "Canvas12": EntitesInCanvas.Insert(11, new EnitityInCanvas(SelectedEntity, canvas, true));break;
+                default: break;
+                
             }
         }
-
-
-
-            #endregion
-
-
+        private bool CanvasTaken(Canvas canvas)
+        {
+            int idCanvas= GetCanvasId(canvas);
+            if (EntitesInCanvas[idCanvas-1]== null)
+            {
+                
+                AddOnCanvas(canvas);
+                return true;
+            }
+            return false;
         }
+        #endregion
+
+
+        #endregion
+
+
+    }
 }

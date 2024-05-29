@@ -7,11 +7,60 @@
     <Application.Resources>
         <Style x:Key="btnNavBar" TargetType="Button" />
 
+
+
+        <Style x:Key="ConditionalBorderStyle" TargetType="Border">
+            <Style.Triggers>
+                <!--  Trigger when LastMeasure is greater than 5  -->
+                <DataTrigger Binding="{Binding EntitesInCanvas[0].Entity.LastMeasure}" Value="GreaterThan5">
+                    <Setter Property="Background" Value="Red" />
+                </DataTrigger>
+                <!--  Trigger when LastMeasure is less than 1  -->
+                <DataTrigger Binding="{Binding EntitesInCanvas[0].Entity.LastMeasure}" Value="LessThan1">
+                    <Setter Property="Background" Value="Red" />
+                </DataTrigger>
+                <!--  Default case for LastMeasure between 1 and 5  -->
+                <DataTrigger Binding="{Binding EntitesInCanvas[0].Entity.LastMeasure}" Value="Between1And5">
+                    <Setter Property="Background" Value="SkyBlue" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <SolidColorBrush x:Key="UIPrimaryColor" Color="#00C64D" />
         <SolidColorBrush x:Key="BackgroundColor" Color="#E3E3D9" />
         <SolidColorBrush x:Key="FontColor" Color="#3D4A3D" />
         <FontFamily x:Key="UIPrimaryFont" />
         <!--  #D9F9D9  -->
+
+
+
+        <Style x:Key="CanvasButton" TargetType="Button">
+            <Setter Property="Background" Value="Red" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="ToolTip" Value="Remove entity from canvas" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="DarkRed" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
         <Style x:Key="btnApp" TargetType="Button">

@@ -23,9 +23,7 @@ namespace NetworkService.Views
     {
         public CustomKeyboard()
         {
-            InitializeComponent();
-            
-
+            InitializeComponent();         
         }   
     }
 }

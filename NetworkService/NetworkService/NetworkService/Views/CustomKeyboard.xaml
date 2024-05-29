@@ -19,14 +19,14 @@
         Margin="0,0,3,0"
         HorizontalAlignment="Center"
         VerticalAlignment="Bottom"
-        Background="White"
+        Background="{StaticResource UIPrimaryColor}"
         Orientation="Vertical">
         <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
             <Button
                 Width="30"
                 Height="30"
                 Margin="3"
-                Command="{Binding ButtonPress}"
+                Command="{Binding ButtonPressCommand}"
                 CommandParameter="1"
                 Content="1" />
             <Button
@@ -270,6 +270,7 @@
                 Width="30"
                 Height="30"
                 Margin="3"
+                Background="White"
                 Command="{Binding ButtonPressCommand}"
                 CommandParameter="N"
                 Content="N" />

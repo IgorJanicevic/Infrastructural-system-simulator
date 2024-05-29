@@ -90,6 +90,7 @@
     <Compile Include="Helpers\DataIO.cs" />
     <Compile Include="Helpers\DropEventArgsConverter.cs" />
     <Compile Include="Helpers\KeyboardBehavior.cs" />
+    <Compile Include="Helpers\LastMeasureToBackgroundColor.cs" />
     <Compile Include="Helpers\LogData.cs" />
     <Compile Include="Helpers\MeasureToColorConverter.cs" />
     <Compile Include="Helpers\MultiplyConverter.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Helpers\SumConverter.cs" />
     <Compile Include="Helpers\ValidationBase.cs" />
     <Compile Include="Helpers\ValidationErrors.cs" />
+    <Compile Include="Model\EnitityInCanvas.cs" />
     <Compile Include="Model\EntitesWithType.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="ViewModel\CustomKeyboardViewModel.cs" />
