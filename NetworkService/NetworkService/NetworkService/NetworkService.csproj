@@ -201,5 +201,11 @@
     <Resource Include="Resources\Images\generator_default.jpg" />
     <Resource Include="Resources\Images\panel_default.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\bb2.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

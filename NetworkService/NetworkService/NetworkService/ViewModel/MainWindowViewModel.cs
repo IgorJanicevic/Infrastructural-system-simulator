@@ -13,24 +13,31 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace NetworkService.ViewModel
 {
     public class MainWindowViewModel : BindableBase
     {
         public static ObservableCollection<Entity> Entites { get; set; }
-
+        public static ObservableCollection<EnitityInCanvas> EntitesInCanvas = new ObservableCollection<EnitityInCanvas>() { null, null, null, null, null, null, null, null, null, null, null, null };
+        public static List<Tuple<int, int, Line>> LinesForCanvasFirst = new List<Tuple<int, int, Line>>();
+        public static Canvas LinesCanvas = null;
         private HomeViewModel homeViewModel =  new HomeViewModel();
         private NetworkEntitesViewModel networkentitesViewModel= new NetworkEntitesViewModel();
         private NetworkDisplayViewModel networkdisplayViewModel;
         private MeasurementGraphViewModel measurementGraphViewModel;
         private BindableBase currentViewModel;
+
+
+
         private Stack<Entity> LastAdded { get; set; }
-        private Stack<Entity> LastDeleted { get; set; }
-      
+        private Stack<Entity> LastDeleted { get; set; }     
         public static Stack<string> CommandsHistory { get; set; }
+
         public BindableBase CurrentViewModel
         {
             get
@@ -63,7 +70,7 @@ namespace NetworkService.ViewModel
             networkentitesViewModel= new NetworkEntitesViewModel(Entites);
             notificationManager = new NotificationManager();
             NavCommand = new MyICommand<string>(OnNav);
-            UndoCommand = new MyICommand(UndoFunc); //Implementirati
+            UndoCommand = new MyICommand(UndoFunc);
             CurrentViewModel = homeViewModel;
             Messenger.Default.Register<Tuple<Entity,string>>(this, AddOrDelete);
             Messenger.Default.Register<NotificationContent>(this, ShowToastNotification);
@@ -133,7 +140,6 @@ namespace NetworkService.ViewModel
             Messenger.Default.Send<NotificationContent>(NotificationsCollection.CreateSuccessToastNotification());
 
         }
-
         private void UndoAdd()
         {
             Entites.Remove(LastAdded.Pop());
@@ -180,9 +186,7 @@ namespace NetworkService.ViewModel
             }
             CommandsHistory.Push(LastNavigation);
             LastNavigation= destination;
-        }
-
-        
+        }     
         private void createListener()
         {
             var tcp = new TcpListener(IPAddress.Any, 25675);
@@ -229,6 +233,9 @@ namespace NetworkService.ViewModel
                                 Entites[id].Update(measure);
                                 LogData.Log($"{id}|{measure}");
                                 Messenger.Default.Send<ObservableCollection<Entity>>(Entites);
+                                Messenger.Default.Send<Tuple<int,int>>(new Tuple<int,int>(id,measure));
+
+                                Messenger.Default.Send<ObservableCollection<Entity>,string>(Entites);
 
                             }
                             catch(Exception) { }

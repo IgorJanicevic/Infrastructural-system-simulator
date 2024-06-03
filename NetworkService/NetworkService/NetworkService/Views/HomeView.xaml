@@ -21,8 +21,8 @@
                     <GradientStop Offset="0" Color="#00c64d" />
                     <GradientStop Offset="0.25" Color="#4fd073" />
                     <GradientStop Offset="0.5" Color="#79da95" />
-                    <GradientStop Offset="0.75" Color="#9ee3b5" />
-                    <GradientStop Offset="1" Color="#c4ead2" />
+                    <GradientStop Offset="0.75" Color="#9ee3b9" />
+                    <GradientStop Offset="1" Color="#ffffff" />
                 </LinearGradientBrush>
             </StackPanel.Background>
             <Ellipse
@@ -31,7 +31,7 @@
                 Margin="0,150,0,0"
                 HorizontalAlignment="Center">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="C:\Users\HomePC\Desktop\logo.png" />
+                    <ImageBrush ImageSource="C:\Users\HomePC\Documents\GitHub\Infrastructural-system-simulator\NetworkService\NetworkService\NetworkService\Resources\Images\logo.jpg" />
                 </Ellipse.Fill>
             </Ellipse>
         </StackPanel>

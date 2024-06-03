@@ -31,6 +31,7 @@
             </Border>
         </DockPanel>
         <helpers:DropEventArgsConverter x:Key="DropEventArgsConverter" />
+        <helpers:LastMeasureToBackgroundConverter x:Key="LastMeasureToBackgroundConverter" />
 
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -61,465 +62,811 @@
                 </TreeView.Resources>
             </TreeView>
 
-            <Border Height="Auto" Style="{StaticResource borderes}">
-                <StackPanel Margin="8" Orientation="Vertical">
-                    <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            Background="White"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas1"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <Image
-                                        Canvas.Top="-4"
-                                        Width="63"
-                                        Height="63"
-                                        Margin="12"
-                                        Source="{Binding EntitesInCanvas[0].Entity.ImagePath}" />
-                                    <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
-                                        <Label FontSize="11" FontWeight="Bold">
-                                            ID:
-                                        </Label>
-                                        <TextBlock
-                                            Margin="0,5,0,0"
-                                            FontSize="11"
-                                            Text="{Binding EntitesInCanvas[0].Entity.Id}" />
-                                        <Label FontSize="11" FontWeight="Bold">
-                                            Last:
-                                        </Label>
-                                        <TextBlock
-                                            Margin="0,5,0,0"
-                                            FontSize="11"
-                                            Text="{Binding EntitesInCanvas[0].Entity.LastMeasure}" />
-                                    </StackPanel>
+            <Border Height="Auto" Style="{StaticResource ConditionalBorderStyle}">
+                <Canvas
+                    Name="LinesCanvas"
+                    Height="515"
+                    Margin="8"
+                    Background="Transparent"
+                    IsHitTestVisible="True">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[0].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
 
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas1, Mode=OneWay}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas1"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[0].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[0].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[0].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas1, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[0].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[0]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
 
 
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Command="{Binding DeleteCommand}"
-                                    CommandParameter="{Binding ElementName=Canvas1}"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas2"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas3"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas1}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[1].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas2"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[1].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[1].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[1].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas2, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[1].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[1]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas2}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[2].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas3"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[2].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[2].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[2].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas3, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[2].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[2]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas3}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                        </StackPanel>
+
+
+                        <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[3].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas4"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[3].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[3].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[3].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas4, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[3].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[3]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas4}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[4].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas5"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[4].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[4].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[4].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas5, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[4].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[4]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas5}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[5].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas6"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[5].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[5].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[5].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas6, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[5].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[5]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas6}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[6].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas7"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[6].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[6].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[6].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas7, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[6].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[6]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas7}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[7].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas8"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[7].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[7].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[7].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas8, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[7].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[7]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas8}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[8].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas9"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[8].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[8].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[8].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas9, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[8].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[8]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas9}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                        </StackPanel>
+
+
+                        <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[9].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas10"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[9].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[9].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[9].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas10, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[9].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[9]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas10}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[10].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas11"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[10].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[10].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[10].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas11, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[10].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[10]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas11}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                            <Border
+                                Width="90"
+                                Height="120"
+                                Margin="10,0,10,0"
+                                Background="{Binding EntitesInCanvas[11].Entity.LastMeasure, Converter={StaticResource LastMeasureToBackgroundConverter}}"
+                                BorderBrush="Blue"
+                                Style="{StaticResource borderes}">
+
+                                <DockPanel>
+                                    <Canvas
+                                        Name="Canvas12"
+                                        Height="85"
+                                        Margin="2"
+                                        AllowDrop="True"
+                                        Background="Transparent"
+                                        Cursor="Hand"
+                                        DockPanel.Dock="Top"
+                                        ToolTip="Right click for line">
+                                        <Image
+                                            Canvas.Top="-4"
+                                            Width="63"
+                                            Height="63"
+                                            Margin="12"
+                                            Source="{Binding EntitesInCanvas[11].Entity.ImagePath}" />
+                                        <StackPanel Margin="0,65,0,0" Orientation="Horizontal">
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                ID:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[11].Entity.Id}" />
+                                            <Label FontSize="11" FontWeight="Bold">
+                                                Last:
+                                            </Label>
+                                            <TextBlock
+                                                Margin="0,5,0,0"
+                                                FontSize="11"
+                                                Text="{Binding EntitesInCanvas[11].Entity.LastMeasure}" />
+                                        </StackPanel>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Drop">
+                                                <i:InvokeCommandAction Command="{Binding DropCommand}" CommandParameter="{Binding ElementName=Canvas12, Mode=OneWay}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[11].Entity}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewMouseRightButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.CreateLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding EntitesInCanvas[11]}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+
+
+                                    </Canvas>
+                                    <Button
+                                        Margin="5,5,5,3"
+                                        VerticalAlignment="Bottom"
+                                        Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=Canvas12}"
+                                        Content="Remove"
+                                        DockPanel.Dock="Bottom"
+                                        Style="{StaticResource CanvasButton}" />
+                                </DockPanel>
+                            </Border>
+                        </StackPanel>
+
                     </StackPanel>
-
-
-                    <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas4"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas5"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas6"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                    </StackPanel>
-
-                    <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas7"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas8"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas9"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                    </StackPanel>
-
-
-                    <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas10"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas11"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                        <Border
-                            Width="90"
-                            Height="120"
-                            Margin="10,0,10,0"
-                            BorderBrush="Blue"
-                            Style="{StaticResource borderes}">
-                            <DockPanel>
-                                <Canvas
-                                    Name="Canvas12"
-                                    Height="85"
-                                    Margin="2"
-                                    AllowDrop="True"
-                                    Background="White"
-                                    DockPanel.Dock="Top">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Drop">
-                                            <i:InvokeCommandAction Command="{Binding DropCommand}">
-                                                <i:InvokeCommandAction.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource DropEventArgsConverter}">
-                                                        <Binding />
-                                                        <Binding RelativeSource="{RelativeSource AncestorType=Canvas}" />
-                                                    </MultiBinding>
-                                                </i:InvokeCommandAction.CommandParameter>
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Canvas>
-                                <Button
-                                    Margin="5,5,5,3"
-                                    VerticalAlignment="Bottom"
-                                    Content="Remove"
-                                    DockPanel.Dock="Bottom"
-                                    Style="{StaticResource CanvasButton}" />
-                            </DockPanel>
-                        </Border>
-                    </StackPanel>
-
-                </StackPanel>
-
+                </Canvas>
             </Border>
 
         </StackPanel>

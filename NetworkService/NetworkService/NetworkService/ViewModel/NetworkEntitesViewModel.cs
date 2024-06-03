@@ -26,6 +26,7 @@ namespace NetworkService.ViewModel
     
     public class NetworkEntitesViewModel : BindableBase
     {
+        #region Fields
 
         private ObservableCollection<Entity> _entites;
         public ObservableCollection<Entity> Entites
@@ -206,7 +207,7 @@ namespace NetworkService.ViewModel
                 OnPropertyChanged(nameof(HeightKeyboard));
             }
         }
-
+#endregion
 
         #region def Commands
         public MyICommand AddNewEntity { get; set; }
@@ -289,33 +290,7 @@ namespace NetworkService.ViewModel
 
         }
         #endregion
-
-        private void UpdateValue(ObservableCollection<Entity> temp)
-        {
-            if (Entites.Count == temp.Count)
-            {
-                Entites = new ObservableCollection<Entity>(temp);
-                EntitesForView = new ObservableCollection<Entity>(FilterUpdate());
-                OnPropertyChanged(nameof(EntitesForView));
-                OnPropertyChanged(nameof(Entites));
-            }
-            else
-            {
-                Entites = new ObservableCollection<Entity>(temp);
-                EntitesForView= new ObservableCollection<Entity>(temp);
-                OnPropertyChanged(nameof(EntitesForView));
-                OnPropertyChanged(nameof(Entites));
-            }
-
-        }
-        private List<Entity> FilterUpdate()
-        {            
-            List<Entity> tempCollection= (EntitesForView.Where(x=> Entites.Contains(x)).ToList());
-            EntitesForView = new ObservableCollection<Entity>(tempCollection);
-            return tempCollection;
-
-        }
-
+             
         #region Commands Function
         private void Filtering()
         {
@@ -337,14 +312,23 @@ namespace NetworkService.ViewModel
             {
                 if (EqualsChecked == LtChecked == GtChecked == false)
                 {
-                    MessageBox.Show("The data cannot be filtered by ID\nbecause you have not selected any radio buttons\r\n", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Messenger.Default.Send<NotificationContent>(NotificationsCollection.InvalidSelectionRadioButtonToastNotification());
                 }
-                if (EqualsChecked)
-                    filteredEntities = filteredEntities.Where(x => x.Id == IdFilterText).ToList();
-                else if (LtChecked)
-                    filteredEntities = filteredEntities.Where(x => x.Id < IdFilterText).ToList();
-                else if (GtChecked)
-                    filteredEntities = filteredEntities.Where(x => x.Id > IdFilterText).ToList();
+                else if (IdFilterText < 0)
+                {
+                    Messenger.Default.Send<NotificationContent>(NotificationsCollection.InvalidIdFilterToastNotification());
+
+                }
+                else
+                {
+                    if (EqualsChecked)
+                        filteredEntities = filteredEntities.Where(x => x.Id == IdFilterText).ToList();
+                    else if (LtChecked)
+                        filteredEntities = filteredEntities.Where(x => x.Id < IdFilterText).ToList();
+                    else if (GtChecked)
+                        filteredEntities = filteredEntities.Where(x => x.Id > IdFilterText).ToList();
+                }
+               
             }
 
             EntitesForView = new ObservableCollection<Entity>(filteredEntities);
@@ -444,7 +428,32 @@ namespace NetworkService.ViewModel
                 }
             }
             OnPropertyChanged(nameof(HeightKeyboard));
-        }      
+        }
+        private void UpdateValue(ObservableCollection<Entity> temp)
+        {
+            if (Entites.Count == temp.Count)
+            {
+                Entites = new ObservableCollection<Entity>(temp);
+                EntitesForView = new ObservableCollection<Entity>(FilterUpdate());
+                OnPropertyChanged(nameof(EntitesForView));
+                OnPropertyChanged(nameof(Entites));
+            }
+            else
+            {
+                Entites = new ObservableCollection<Entity>(temp);
+                EntitesForView = new ObservableCollection<Entity>(temp);
+                OnPropertyChanged(nameof(EntitesForView));
+                OnPropertyChanged(nameof(Entites));
+            }
+
+        }
+        private List<Entity> FilterUpdate()
+        {
+            List<Entity> tempCollection = (EntitesForView.Where(x => Entites.Contains(x)).ToList());
+            EntitesForView = new ObservableCollection<Entity>(tempCollection);
+            return tempCollection;
+
+        }
         #endregion
 
         #region Loads

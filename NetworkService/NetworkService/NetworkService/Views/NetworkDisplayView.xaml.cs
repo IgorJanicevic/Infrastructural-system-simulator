@@ -25,7 +25,15 @@ namespace NetworkService.Views
         {
             InitializeComponent();
             this.DataContext = new NetworkDisplayViewModel(MainWindowViewModel.Entites);
-
+            Changed();
+        }
+        private void Changed()
+        {
+            var viewModel = DataContext as NetworkDisplayViewModel;
+            if (viewModel != null)
+            {
+               viewModel.LinesCanvas = LinesCanvas;
+            }
         }
 
     }

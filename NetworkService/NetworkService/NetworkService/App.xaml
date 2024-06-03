@@ -6,10 +6,18 @@
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style x:Key="btnNavBar" TargetType="Button" />
-
+        <SolidColorBrush x:Key="UIPrimaryColor" Color="#00C64D" />
+        <SolidColorBrush x:Key="BackgroundColor" Color="#E3E3D9" />
+        <SolidColorBrush x:Key="FontColor" Color="#3D4A3D" />
+        <FontFamily x:Key="UIPrimaryFont" />
+        <!--  #D9F9D9  -->
 
 
         <Style x:Key="ConditionalBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="{StaticResource UIPrimaryColor}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="8" />
             <Style.Triggers>
                 <!--  Trigger when LastMeasure is greater than 5  -->
                 <DataTrigger Binding="{Binding EntitesInCanvas[0].Entity.LastMeasure}" Value="GreaterThan5">
@@ -25,14 +33,6 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
-        <SolidColorBrush x:Key="UIPrimaryColor" Color="#00C64D" />
-        <SolidColorBrush x:Key="BackgroundColor" Color="#E3E3D9" />
-        <SolidColorBrush x:Key="FontColor" Color="#3D4A3D" />
-        <FontFamily x:Key="UIPrimaryFont" />
-        <!--  #D9F9D9  -->
-
-
 
         <Style x:Key="CanvasButton" TargetType="Button">
             <Setter Property="Background" Value="Red" />
@@ -96,7 +96,6 @@
             <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
             <Setter Property="Foreground" Value="#3D4A3D" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="FontFamily" Value="sans-serif-medium" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Padding" Value="15,12" />
             <Setter Property="Width" Value="328" />

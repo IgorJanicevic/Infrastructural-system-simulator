@@ -151,7 +151,7 @@
                         </Grid>
                     </Border>
 
-                    <Border Style="{StaticResource borderes}">
+                    <Border Height="615" Style="{StaticResource borderes}">
                         <Grid Height="Auto">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -290,6 +290,7 @@
                             </Border>
                         </Grid>
                     </Border>
+
                 </StackPanel>
             </Grid>
         </ScrollViewer>

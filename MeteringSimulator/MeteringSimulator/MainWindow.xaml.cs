@@ -115,7 +115,7 @@ namespace MeteringSimulator
                 }
                 else if (ProjectTopics.SelectedValue.ToString().Equals("T4"))
                 {
-                    value = r.Next(0, 10);
+                    value = r.Next(0, 7);
                 }
                 else if (ProjectTopics.SelectedValue.ToString().Equals("T5"))
                 {

@@ -28,7 +28,7 @@ namespace NetworkService.Model
         public override bool Equals(object obj)
         {
             return obj is EnitityInCanvas canvas &&
-                   EqualityComparer<Canvas>.Default.Equals(Canvas, canvas.Canvas);
+                   EqualityComparer<Canvas>.Default.Equals(Canvas, canvas.Canvas) || obj.Equals(Entity.Id);
         }
     }
 }

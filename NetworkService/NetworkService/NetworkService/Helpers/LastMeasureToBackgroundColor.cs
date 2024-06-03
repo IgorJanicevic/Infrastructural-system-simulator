@@ -2,27 +2,30 @@
 using System.Windows.Data;
 using System.Windows.Media;
 using System;
+using System.Windows;
 
-public class LastMeasureToBackgroundConverter : IValueConverter
+namespace NetworkService.Helpers
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public class LastMeasureToBackgroundConverter : IValueConverter
     {
-        if (value is double lastMeasure)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (lastMeasure > 5 || lastMeasure < 1)
-            {
-                return Brushes.Red;
-            }
-            else
-            {
-                return Brushes.SkyBlue;
-            }
+            int lastMeasure = (int)value;
+          
+                if (lastMeasure > 5 || lastMeasure < 1)
+                {
+                    return Brushes.IndianRed;
+                }
+                else
+                {
+                    return Brushes.SkyBlue;
+                }
+            
         }
-        return Brushes.Transparent;
-    }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -116,6 +116,151 @@ namespace NetworkService.Helpers
 
             return notificationContent;
         }
+        public static NotificationContent InvalidIdFilterToastNotification()
+        {
+            var notificationContent = new NotificationContent
+            {
+                Title = "Error",
+                Message = "FIlter id is invalid",
+                Type = NotificationType.Error,
+                TrimType = NotificationTextTrimType.AttachIfMoreRows, // Will show attach button on message
+                RowsCount = 2, // Will show 3 rows and trim after
+                //LeftButtonAction = () => SomeAction(), // Action on left button click, button will not show if it null 
+                //RightButtonAction = () => SomeAction(), // Action on right button click,  button will not show if it null
+                //LeftButtonContent, // Left button content (string or what u want)
+                //RightButtonContent, // Right button content (string or what u want)
+                CloseOnClick = true, // Set true if u want close message when left mouse button click on message (base = true)
+
+                Background = new SolidColorBrush(Colors.Red),
+                Foreground = new SolidColorBrush(Colors.White),
+
+                // FontAwesome5 by Codinion NuGet paket ti treba da bi radilo ovo sa ikonicama
+                // Icon = new SvgAwesome()
+                // {
+                //      Icon = EFontAwesomeIcon.Regular_Star,
+                //      Height = 25,
+                //      Foreground = new SolidColorBrush(Colors.Yellow)
+                // },
+
+                // Image = new NotificationImage()
+                // {
+                //      Source = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Test image.png")));,
+                //      Position = ImagePosition.Top
+                // }
+            };
+
+            return notificationContent;
+        }
+        public static NotificationContent InvalidSelectionRadioButtonToastNotification()
+        {
+            var notificationContent = new NotificationContent
+            {
+                Title = "Error",
+                Message = "FIlter id is invalid",
+                Type = NotificationType.Error,
+                TrimType = NotificationTextTrimType.AttachIfMoreRows, // Will show attach button on message
+                RowsCount = 2, // Will show 3 rows and trim after
+                //LeftButtonAction = () => SomeAction(), // Action on left button click, button will not show if it null 
+                //RightButtonAction = () => SomeAction(), // Action on right button click,  button will not show if it null
+                //LeftButtonContent, // Left button content (string or what u want)
+                //RightButtonContent, // Right button content (string or what u want)
+                CloseOnClick = true, // Set true if u want close message when left mouse button click on message (base = true)
+
+                Background = new SolidColorBrush(Colors.Red),
+                Foreground = new SolidColorBrush(Colors.White),
+
+                // FontAwesome5 by Codinion NuGet paket ti treba da bi radilo ovo sa ikonicama
+                // Icon = new SvgAwesome()
+                // {
+                //      Icon = EFontAwesomeIcon.Regular_Star,
+                //      Height = 25,
+                //      Foreground = new SolidColorBrush(Colors.Yellow)
+                // },
+
+                // Image = new NotificationImage()
+                // {
+                //      Source = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Test image.png")));,
+                //      Position = ImagePosition.Top
+                // }
+            };
+
+            return notificationContent;
+        }
+        public static NotificationContent FirstSuccessSelectedToastNotification()
+        {
+            var notificationContent = new NotificationContent
+            {
+                Title = "Success",
+                Message = "First entity is successfully selected",
+                Type = NotificationType.Error,
+                TrimType = NotificationTextTrimType.AttachIfMoreRows, // Will show attach button on message
+                RowsCount = 2, // Will show 3 rows and trim after
+                //LeftButtonAction = () => SomeAction(), // Action on left button click, button will not show if it null 
+                //RightButtonAction = () => SomeAction(), // Action on right button click,  button will not show if it null
+                //LeftButtonContent, // Left button content (string or what u want)
+                //RightButtonContent, // Right button content (string or what u want)
+                CloseOnClick = true, // Set true if u want close message when left mouse button click on message (base = true)
+
+                Background = new SolidColorBrush(Colors.LimeGreen),
+                Foreground = new SolidColorBrush(Colors.White),
+
+                // FontAwesome5 by Codinion NuGet paket ti treba da bi radilo ovo sa ikonicama
+                // Icon = new SvgAwesome()
+                // {
+                //      Icon = EFontAwesomeIcon.Regular_Star,
+                //      Height = 25,
+                //      Foreground = new SolidColorBrush(Colors.Yellow)
+                // },
+
+                // Image = new NotificationImage()
+                // {
+                //      Source = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Test image.png")));,
+                //      Position = ImagePosition.Top
+                // }
+            };
+
+            return notificationContent;
+        }
+        public static NotificationContent SecondSuccessSelectedToastNotification()
+        {
+            var notificationContent = new NotificationContent
+            {
+                Title = "Success",
+                Message = "Second entity is successfully selected",
+                Type = NotificationType.Error,
+                TrimType = NotificationTextTrimType.AttachIfMoreRows, // Will show attach button on message
+                RowsCount = 2, // Will show 3 rows and trim after
+                //LeftButtonAction = () => SomeAction(), // Action on left button click, button will not show if it null 
+                //RightButtonAction = () => SomeAction(), // Action on right button click,  button will not show if it null
+                //LeftButtonContent, // Left button content (string or what u want)
+                //RightButtonContent, // Right button content (string or what u want)
+                CloseOnClick = true, // Set true if u want close message when left mouse button click on message (base = true)
+
+                Background = new SolidColorBrush(Colors.LimeGreen),
+                Foreground = new SolidColorBrush(Colors.White),
+
+                // FontAwesome5 by Codinion NuGet paket ti treba da bi radilo ovo sa ikonicama
+                // Icon = new SvgAwesome()
+                // {
+                //      Icon = EFontAwesomeIcon.Regular_Star,
+                //      Height = 25,
+                //      Foreground = new SolidColorBrush(Colors.Yellow)
+                // },
+
+                // Image = new NotificationImage()
+                // {
+                //      Source = new BitmapImage(new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Test image.png")));,
+                //      Position = ImagePosition.Top
+                // }
+            };
+
+            return notificationContent;
+        }
+
+
+
+
+
 
 
     }
